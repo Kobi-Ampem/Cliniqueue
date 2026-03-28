@@ -1,0 +1,257 @@
+[
+  {
+    "id": "kath",
+    "name": "Komfo Anokye Teaching Hospital (KATH)",
+    "location": "Bantama, Kumasi",
+    "type": "Teaching Hospital",
+    "phone": "+233 32 202 2301",
+    "services": [
+      {
+        "name": "General OPD",
+        "avgWaitMinutes": 185,
+        "bestTimeToArrive": "Before 7:30am",
+        "busiestTime": "9am–12pm",
+        "reportCount": 47
+      },
+      {
+        "name": "Emergency / A&E",
+        "avgWaitMinutes": 25,
+        "bestTimeToArrive": "N/A — Emergency",
+        "busiestTime": "Evenings & weekends",
+        "reportCount": 32
+      },
+      {
+        "name": "Antenatal Care",
+        "avgWaitMinutes": 210,
+        "bestTimeToArrive": "Before 7:00am",
+        "busiestTime": "8am–11am",
+        "reportCount": 28
+      },
+      {
+        "name": "Laboratory",
+        "avgWaitMinutes": 90,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "9am–1pm",
+        "reportCount": 39
+      },
+      {
+        "name": "Pharmacy",
+        "avgWaitMinutes": 55,
+        "bestTimeToArrive": "Before 8:30am",
+        "busiestTime": "10am–2pm",
+        "reportCount": 51
+      },
+      {
+        "name": "Eye Clinic",
+        "avgWaitMinutes": 150,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "9am–12pm",
+        "reportCount": 18
+      },
+      {
+        "name": "Dental Clinic",
+        "avgWaitMinutes": 120,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "9am–11am",
+        "reportCount": 22
+      }
+    ]
+  },
+  {
+    "id": "knust-hospital",
+    "name": "KNUST Hospital",
+    "location": "KNUST Campus, Kumasi",
+    "type": "University Hospital",
+    "phone": "+233 32 206 0266",
+    "services": [
+      {
+        "name": "General OPD",
+        "avgWaitMinutes": 120,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "9am–12pm",
+        "reportCount": 35
+      },
+      {
+        "name": "Emergency / A&E",
+        "avgWaitMinutes": 20,
+        "bestTimeToArrive": "N/A — Emergency",
+        "busiestTime": "Evenings",
+        "reportCount": 18
+      },
+      {
+        "name": "Antenatal Care",
+        "avgWaitMinutes": 150,
+        "bestTimeToArrive": "Before 7:30am",
+        "busiestTime": "8am–11am",
+        "reportCount": 20
+      },
+      {
+        "name": "Laboratory",
+        "avgWaitMinutes": 60,
+        "bestTimeToArrive": "Before 8:30am",
+        "busiestTime": "10am–1pm",
+        "reportCount": 27
+      },
+      {
+        "name": "Pharmacy",
+        "avgWaitMinutes": 35,
+        "bestTimeToArrive": "Before 9:00am",
+        "busiestTime": "11am–2pm",
+        "reportCount": 30
+      }
+    ]
+  },
+  {
+    "id": "kumasi-south",
+    "name": "Kumasi South Hospital",
+    "location": "Kwadaso, Kumasi",
+    "type": "Regional Hospital",
+    "phone": "+233 32 202 8765",
+    "services": [
+      {
+        "name": "General OPD",
+        "avgWaitMinutes": 150,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "9am–12pm",
+        "reportCount": 29
+      },
+      {
+        "name": "Emergency / A&E",
+        "avgWaitMinutes": 30,
+        "bestTimeToArrive": "N/A — Emergency",
+        "busiestTime": "Evenings",
+        "reportCount": 14
+      },
+      {
+        "name": "Antenatal Care",
+        "avgWaitMinutes": 180,
+        "bestTimeToArrive": "Before 7:30am",
+        "busiestTime": "8am–11am",
+        "reportCount": 16
+      },
+      {
+        "name": "Laboratory",
+        "avgWaitMinutes": 75,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "9am–1pm",
+        "reportCount": 21
+      },
+      {
+        "name": "Pharmacy",
+        "avgWaitMinutes": 45,
+        "bestTimeToArrive": "Before 9:00am",
+        "busiestTime": "10am–2pm",
+        "reportCount": 24
+      },
+      {
+        "name": "Child Welfare Clinic",
+        "avgWaitMinutes": 100,
+        "bestTimeToArrive": "Before 8:00am (Tues/Thurs only)",
+        "busiestTime": "8am–10am",
+        "reportCount": 12
+      }
+    ]
+  },
+  {
+    "id": "manhyia",
+    "name": "Manhyia District Hospital",
+    "location": "Manhyia, Kumasi",
+    "type": "District Hospital",
+    "phone": "+233 32 202 2445",
+    "services": [
+      {
+        "name": "General OPD",
+        "avgWaitMinutes": 130,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "9am–12pm",
+        "reportCount": 22
+      },
+      {
+        "name": "Emergency / A&E",
+        "avgWaitMinutes": 35,
+        "bestTimeToArrive": "N/A — Emergency",
+        "busiestTime": "Evenings",
+        "reportCount": 10
+      },
+      {
+        "name": "Antenatal Care",
+        "avgWaitMinutes": 140,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "8am–11am",
+        "reportCount": 14
+      },
+      {
+        "name": "Laboratory",
+        "avgWaitMinutes": 65,
+        "bestTimeToArrive": "Before 8:30am",
+        "busiestTime": "9am–12pm",
+        "reportCount": 17
+      },
+      {
+        "name": "Pharmacy",
+        "avgWaitMinutes": 40,
+        "bestTimeToArrive": "Before 9:00am",
+        "busiestTime": "10am–1pm",
+        "reportCount": 19
+      },
+      {
+        "name": "Family Planning",
+        "avgWaitMinutes": 80,
+        "bestTimeToArrive": "Before 8:30am",
+        "busiestTime": "9am–11am",
+        "reportCount": 9
+      }
+    ]
+  },
+  {
+    "id": "tafo",
+    "name": "Tafo Government Hospital",
+    "location": "Tafo, Kumasi",
+    "type": "Government Hospital",
+    "phone": "+233 32 203 1234",
+    "services": [
+      {
+        "name": "General OPD",
+        "avgWaitMinutes": 110,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "9am–12pm",
+        "reportCount": 18
+      },
+      {
+        "name": "Emergency / A&E",
+        "avgWaitMinutes": 40,
+        "bestTimeToArrive": "N/A — Emergency",
+        "busiestTime": "Evenings",
+        "reportCount": 8
+      },
+      {
+        "name": "Antenatal Care",
+        "avgWaitMinutes": 130,
+        "bestTimeToArrive": "Before 8:00am",
+        "busiestTime": "8am–11am",
+        "reportCount": 11
+      },
+      {
+        "name": "Laboratory",
+        "avgWaitMinutes": 55,
+        "bestTimeToArrive": "Before 8:30am",
+        "busiestTime": "9am–12pm",
+        "reportCount": 13
+      },
+      {
+        "name": "Pharmacy",
+        "avgWaitMinutes": 30,
+        "bestTimeToArrive": "Before 9:00am",
+        "busiestTime": "10am–1pm",
+        "reportCount": 15
+      },
+      {
+        "name": "Child Welfare Clinic",
+        "avgWaitMinutes": 90,
+        "bestTimeToArrive": "Before 8:00am (Mon/Wed/Fri)",
+        "busiestTime": "8am–10am",
+        "reportCount": 8
+      }
+    ]
+  }
+]
