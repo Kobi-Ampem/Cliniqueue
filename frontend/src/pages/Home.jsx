@@ -57,7 +57,7 @@ const features = [
     border: 'rgba(16,185,129,0.3)',
     accent: '#10B981',
     glow: 'rgba(16,185,129,0.2)',
-    badge: '💾 Stored locally',
+    badge: '📝 Your notebook',
   },
 ]
 

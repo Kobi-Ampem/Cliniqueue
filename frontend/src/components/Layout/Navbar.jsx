@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import { Heart, Menu, X } from 'lucide-react'
 import { useLanguage, LANGUAGES } from '../../context/LanguageContext'
 import './Navbar.css'
@@ -7,7 +7,6 @@ import './Navbar.css'
 export default function Navbar() {
   const { currentLang, setCurrentLang, translating } = useLanguage()
   const [menuOpen, setMenuOpen] = useState(false)
-  const location = useLocation()
 
   const navItems = [
     { to: '/', label: 'Home' },

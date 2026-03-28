@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
-import { ArrowLeft, AlertTriangle, CheckCircle, ChevronRight } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { AlertTriangle, ChevronRight } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
-import firstAidData from '../data/firstAidData.json'
+import axios from 'axios'
 import './FirstAid.css'
 
 const SEVERITY_LABELS = {
@@ -12,26 +11,56 @@ const SEVERITY_LABELS = {
 }
 
 export default function FirstAid() {
+  const [emergencies, setEmergencies] = useState([])
+  const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState(null)
-  const [translatedSteps, setTranslatedSteps] = useState(null)
-  const [translatedTitle, setTranslatedTitle] = useState(null)
+  const [translated, setTranslated] = useState(null)
   const [isTranslating, setIsTranslating] = useState(false)
   const { currentLang, translate } = useLanguage()
 
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  const loadData = async () => {
+    try {
+      const res = await axios.get('/api/first-aid')
+      setEmergencies(Array.isArray(res.data) ? res.data : [])
+    } catch (err) {
+      console.warn('API unavailable, loading static data')
+      const mod = await import('../data/firstAidData.json')
+      setEmergencies(mod.default)
+    } finally {
+      setLoading(false)
+    }
+  }
+
   const translateSelected = useCallback(async (item, lang) => {
     if (!item || lang === 'en') {
-      setTranslatedSteps(null)
-      setTranslatedTitle(null)
+      setTranslated(null)
       return
     }
     setIsTranslating(true)
     try {
-      const [titleRes, ...stepResults] = await Promise.all([
+      const [titleRes, subtitleRes, hospitalRes, ...rest] = await Promise.all([
         translate(item.title, lang),
+        translate(item.subtitle, lang),
+        translate(item.whenToGoToHospital, lang),
         ...item.steps.map(s => translate(s, lang)),
       ])
-      setTranslatedTitle(titleRes)
-      setTranslatedSteps(stepResults)
+      const stepResults = rest.slice(0, item.steps.length)
+
+      const warningResults = await Promise.all(
+        item.warnings.map(w => translate(w, lang))
+      )
+
+      setTranslated({
+        title: titleRes,
+        subtitle: subtitleRes,
+        whenToGoToHospital: hospitalRes,
+        steps: stepResults,
+        warnings: warningResults,
+      })
     } catch (e) {
       console.warn('Translation error', e)
     } finally {
@@ -45,12 +74,24 @@ export default function FirstAid() {
     }
   }, [selected, currentLang, translateSelected])
 
-  const displaySteps = translatedSteps || selected?.steps
-  const displayTitle = translatedTitle || selected?.title
+  const displayTitle = translated?.title || selected?.title
+  const displaySubtitle = translated?.subtitle || selected?.subtitle
+  const displaySteps = translated?.steps || selected?.steps
+  const displayWarnings = translated?.warnings || selected?.warnings
+  const displayHospital = translated?.whenToGoToHospital || selected?.whenToGoToHospital
+
+  if (loading) {
+    return (
+      <div className="firstaid-wrapper">
+        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+          <div className="spinner" style={{ width: 32, height: 32 }} />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="firstaid-wrapper">
-      {/* Page header */}
       <div className="page-header">
         <div className="container">
           <div className="page-header-inner">
@@ -71,17 +112,15 @@ export default function FirstAid() {
 
       <div className="container">
         <div className="firstaid-layout">
-          {/* Grid */}
           <div className="emergency-grid animate-stagger">
-            {firstAidData.map(item => (
+            {emergencies.map(item => (
               <button
                 key={item.id}
                 id={`first-aid-${item.id}`}
                 className={`emergency-card ${selected?.id === item.id ? 'active' : ''}`}
                 onClick={() => {
                   setSelected(item)
-                  setTranslatedSteps(null)
-                  setTranslatedTitle(null)
+                  setTranslated(null)
                 }}
                 style={{ '--em-color': item.color }}
               >
@@ -97,7 +136,6 @@ export default function FirstAid() {
             ))}
           </div>
 
-          {/* Detail Panel */}
           <div className="aid-detail">
             {!selected ? (
               <div className="aid-detail-empty">
@@ -107,21 +145,19 @@ export default function FirstAid() {
               </div>
             ) : (
               <div className="aid-detail-content animate-fade-in" key={selected.id}>
-                {/* Header */}
                 <div className="aid-detail-header">
                   <div className="aid-detail-emoji">{selected.emoji}</div>
                   <div className="aid-detail-title-block">
                     <h2>
                       {isTranslating ? <span className="translating-text"><span className="spinner" style={{display:'inline-block', width:16, height:16}}/> Translating...</span> : displayTitle}
                     </h2>
-                    <p>{selected.subtitle}</p>
+                    <p>{isTranslating ? '' : displaySubtitle}</p>
                   </div>
                   <span className={`badge ${SEVERITY_LABELS[selected.severity]?.cls}`}>
                     {SEVERITY_LABELS[selected.severity]?.icon} {SEVERITY_LABELS[selected.severity]?.label}
                   </span>
                 </div>
 
-                {/* Steps */}
                 <div className="aid-steps">
                   <h4 className="aid-steps-title">📋 Step-by-Step Instructions</h4>
                   {isTranslating ? (
@@ -131,7 +167,7 @@ export default function FirstAid() {
                     </div>
                   ) : (
                     <ol className="steps-list">
-                      {(displaySteps || selected.steps).map((step, i) => (
+                      {(displaySteps || []).map((step, i) => (
                         <li key={i} className="step-item">
                           <div className="step-number">{i + 1}</div>
                           <p className="step-text">{step}</p>
@@ -141,24 +177,26 @@ export default function FirstAid() {
                   )}
                 </div>
 
-                {/* Warnings */}
                 {selected.warnings && selected.warnings.length > 0 && (
                   <div className="aid-warnings">
                     <h4><AlertTriangle size={16} /> Do NOT do these things</h4>
-                    <ul>
-                      {selected.warnings.map((w, i) => (
-                        <li key={i}>❌ {w}</li>
-                      ))}
-                    </ul>
+                    {isTranslating ? (
+                      <div style={{ padding: '1rem', color: 'var(--text-muted)' }}>Translating...</div>
+                    ) : (
+                      <ul>
+                        {(displayWarnings || []).map((w, i) => (
+                          <li key={i}>❌ {w}</li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 )}
 
-                {/* When to go */}
                 <div className="aid-hospital-cta">
                   <div className="aid-hospital-icon">🏥</div>
                   <div>
                     <h4>When to go to the hospital</h4>
-                    <p>{selected.whenToGoToHospital}</p>
+                    <p>{isTranslating ? 'Translating...' : displayHospital}</p>
                   </div>
                 </div>
               </div>

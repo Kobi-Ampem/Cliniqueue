@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
-import { Clock, Users, TrendingUp, Plus, ChevronDown, CheckCircle, AlertCircle } from 'lucide-react'
+import { Clock, Users, Plus, ChevronDown, CheckCircle } from 'lucide-react'
 import axios from 'axios'
-import facilitiesData from '../data/facilities.json'
 import './WaitTimes.css'
 
 function formatTime(minutes) {
@@ -26,12 +25,37 @@ function getWaitLabel(minutes) {
 }
 
 export default function WaitTimes() {
-  const [facilities, setFacilities] = useState(facilitiesData)
+  const [facilities, setFacilities] = useState([])
+  const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState(null)
   const [showForm, setShowForm] = useState(false)
   const [form, setForm] = useState({ facilityId: '', service: '', minutes: 60, timeOfDay: 'morning' })
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+
+  useEffect(() => {
+    loadFacilities()
+  }, [])
+
+  const loadFacilities = async () => {
+    try {
+      const res = await axios.get('/api/wait-times')
+      if (res.data && Array.isArray(res.data)) {
+        setFacilities(res.data)
+      }
+    } catch (err) {
+      console.warn('API unavailable, loading static data')
+      const mod = await import('../data/facilities.json')
+      setFacilities(mod.default)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const selectedFacility = facilities.find(f => f.id === form.facilityId)
+  const availableServices = selectedFacility
+    ? selectedFacility.services.map(s => s.name)
+    : []
 
   const handleReport = async (e) => {
     e.preventDefault()
@@ -40,11 +64,9 @@ export default function WaitTimes() {
       await axios.post('/api/wait-times', form)
       setSubmitted(true)
       setTimeout(() => { setSubmitted(false); setShowForm(false) }, 3000)
-      // Refresh data
       const res = await axios.get('/api/wait-times')
       if (res.data) setFacilities(res.data)
     } catch (err) {
-      // If API is down, just show success for demo
       setSubmitted(true)
       setTimeout(() => { setSubmitted(false); setShowForm(false) }, 3000)
     } finally {
@@ -52,9 +74,15 @@ export default function WaitTimes() {
     }
   }
 
-  const allServices = selected
-    ? selected.services
-    : []
+  if (loading) {
+    return (
+      <div className="waittimes-wrapper">
+        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+          <div className="spinner" style={{ width: 32, height: 32 }} />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="waittimes-wrapper">
@@ -78,7 +106,6 @@ export default function WaitTimes() {
             </button>
           </div>
 
-          {/* Report Form */}
           {showForm && (
             <div className="report-form-wrapper animate-fade-up">
               {submitted ? (
@@ -96,7 +123,7 @@ export default function WaitTimes() {
                         id="report-facility"
                         className="select"
                         value={form.facilityId}
-                        onChange={e => setForm(f => ({ ...f, facilityId: e.target.value }))}
+                        onChange={e => setForm(f => ({ ...f, facilityId: e.target.value, service: '' }))}
                         required
                       >
                         <option value="">Select facility...</option>
@@ -115,7 +142,7 @@ export default function WaitTimes() {
                         required
                       >
                         <option value="">Select service...</option>
-                        {['General OPD', 'Emergency / A&E', 'Antenatal Care', 'Laboratory', 'Pharmacy', 'Eye Clinic', 'Dental Clinic', 'Child Welfare Clinic', 'Family Planning', 'Specialist'].map(s => (
+                        {availableServices.map(s => (
                           <option key={s} value={s}>{s}</option>
                         ))}
                       </select>
@@ -156,7 +183,7 @@ export default function WaitTimes() {
                   </div>
                   <div className="flex gap-3">
                     <button type="submit" className="btn btn-primary" disabled={submitting} id="submit-wait-report-btn">
-                      {submitting ? <><div className="spinner" style={{width:16,height:16}} /> Submitting...</> : '✅ Submit Report'}
+                      {submitting ? <><div className="spinner" style={{width:16,height:16}} /> Submitting...</> : 'Submit Report'}
                     </button>
                     <button type="button" className="btn btn-secondary" onClick={() => setShowForm(false)}>Cancel</button>
                   </div>
@@ -169,7 +196,6 @@ export default function WaitTimes() {
 
       <div className="container">
         <div className="waittimes-layout">
-          {/* Facility Cards */}
           <div className="facilities-grid animate-stagger">
             {facilities.map(facility => {
               const avgWait = Math.round(facility.services.reduce((s, sv) => s + sv.avgWaitMinutes, 0) / facility.services.length)
@@ -206,7 +232,6 @@ export default function WaitTimes() {
                     </div>
                   </div>
 
-                  {/* Service breakdown */}
                   {selected?.id === facility.id && (
                     <div className="services-breakdown animate-fade-in" onClick={e => e.stopPropagation()}>
                       <h4 className="breakdown-title">Service Breakdown</h4>
@@ -247,7 +272,6 @@ export default function WaitTimes() {
             })}
           </div>
 
-          {/* Side panel: Tips */}
           <div className="waittimes-sidebar">
             <div className="wait-tips-card">
               <h3>⏰ General Wait Time Tips</h3>

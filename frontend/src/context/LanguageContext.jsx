@@ -20,7 +20,7 @@ export function LanguageProvider({ children }) {
   const translate = useCallback(async (text, targetLang) => {
     if (!text || targetLang === 'en') return text
 
-    const cacheKey = `${targetLang}:${text.substring(0, 50)}`
+    const cacheKey = `${targetLang}:${text}`
     if (translationCache.has(cacheKey)) {
       return translationCache.get(cacheKey)
     }

@@ -1,55 +1,90 @@
 import { useState, useEffect } from 'react'
-import { BookOpen, Plus, Calendar, MapPin, Search, Trash2, Edit2 } from 'lucide-react'
+import { Plus, Calendar, MapPin, Trash2, Edit2, Loader } from 'lucide-react'
+import axios from 'axios'
 import './Journal.css'
 
+const emptyForm = {
+  date: new Date().toISOString().split('T')[0],
+  facility: '',
+  service: '',
+  doctor: '',
+  diagnosis: '',
+  prescriptions: '',
+  nextDate: '',
+  notes: ''
+}
+
 export default function Journal() {
-  const [entries, setEntries] = useState(() => {
-    const saved = localStorage.getItem('clinicplus_journal')
-    return saved ? JSON.parse(saved) : []
-  })
+  const [entries, setEntries] = useState([])
+  const [loading, setLoading] = useState(true)
   const [showForm, setShowForm] = useState(false)
   const [editingId, setEditingId] = useState(null)
-  
-  const [form, setForm] = useState({
-    date: new Date().toISOString().split('T')[0],
-    facility: '',
-    service: '',
-    doctor: '',
-    diagnosis: '',
-    prescriptions: '',
-    nextDate: '',
-    notes: ''
-  })
+  const [saving, setSaving] = useState(false)
+  const [form, setForm] = useState({ ...emptyForm })
 
   useEffect(() => {
-    localStorage.setItem('clinicplus_journal', JSON.stringify(entries))
-  }, [entries])
+    fetchEntries()
+  }, [])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (editingId) {
-      setEntries(entries.map(ent => ent.id === editingId ? { ...form, id: editingId, updatedAt: new Date().toISOString() } : ent))
-      setEditingId(null)
-    } else {
-      setEntries([
-        { id: Date.now().toString(), createdAt: new Date().toISOString(), ...form },
-        ...entries
-      ])
+  const fetchEntries = async () => {
+    try {
+      const res = await axios.get('/api/journal')
+      setEntries(Array.isArray(res.data) ? res.data : [])
+    } catch (err) {
+      console.warn('Failed to load journal from API, falling back to localStorage')
+      const saved = localStorage.getItem('clinicplus_journal')
+      setEntries(saved ? JSON.parse(saved) : [])
+    } finally {
+      setLoading(false)
     }
-    setShowForm(false)
-    setForm({ date: new Date().toISOString().split('T')[0], facility: '', service: '', doctor: '', diagnosis: '', prescriptions: '', nextDate: '', notes: '' })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setSaving(true)
+    try {
+      if (editingId) {
+        const res = await axios.put(`/api/journal/${editingId}`, form)
+        setEntries(entries.map(ent => ent.id === editingId ? res.data : ent))
+      } else {
+        const res = await axios.post('/api/journal', form)
+        setEntries([res.data, ...entries])
+      }
+      setEditingId(null)
+      setShowForm(false)
+      setForm({ ...emptyForm })
+    } catch (err) {
+      console.error('Save failed:', err)
+      alert('Failed to save. Please try again.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   const handleEdit = (entry) => {
-    setForm(entry)
+    setForm({
+      date: entry.date,
+      facility: entry.facility,
+      service: entry.service,
+      doctor: entry.doctor || '',
+      diagnosis: entry.diagnosis || '',
+      prescriptions: entry.prescriptions || '',
+      nextDate: entry.nextDate || '',
+      notes: entry.notes || '',
+    })
     setEditingId(entry.id)
     setShowForm(true)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const handleDelete = (id) => {
-    if (window.confirm('Delete this visit record? This cannot be undone.')) {
+  const handleDelete = async (id) => {
+    if (!window.confirm('Delete this visit record? This cannot be undone.')) return
+    try {
+      await axios.delete(`/api/journal/${id}`)
       setEntries(entries.filter(e => e.id !== id))
+    } catch (err) {
+      console.error('Delete failed:', err)
+      alert('Failed to delete. Please try again.')
     }
   }
 
@@ -67,13 +102,12 @@ export default function Journal() {
               <h1>My Visit Journal</h1>
               <p>Your personal health notebook. Remember what the doctor said and keep track of your medications.</p>
             </div>
-            <button className="btn btn-primary" onClick={() => { setShowForm(!showForm); setEditingId(null); setForm({ ...form, facility: '', diagnosis: '', service: '' }); }}>
+            <button className="btn btn-primary" onClick={() => { setShowForm(!showForm); setEditingId(null); setForm({ ...emptyForm }); }}>
               <Plus size={16} />
               {showForm && !editingId ? 'Cancel' : 'Log New Visit'}
             </button>
           </div>
 
-          {/* Form */}
           {showForm && (
             <div className="journal-form-container animate-fade-up">
               <form className="journal-form" onSubmit={handleSubmit}>
@@ -105,7 +139,7 @@ export default function Journal() {
 
                 <div className="form-group">
                   <label className="form-label" htmlFor="j-prescriptions">Prescriptions / Medications</label>
-                  <textarea id="j-prescriptions" className="textarea" placeholder="1. Artemisnin combo - 1 table morning/evening for 3 days&#10;2. Paracetamol - 2 tablets every 8 hours" style={{minHeight:'80px'}} value={form.prescriptions} onChange={e => setForm({...form, prescriptions: e.target.value})} />
+                  <textarea id="j-prescriptions" className="textarea" placeholder={"1. Artemisinin combo - 1 tablet morning/evening for 3 days\n2. Paracetamol - 2 tablets every 8 hours"} style={{minHeight:'80px'}} value={form.prescriptions} onChange={e => setForm({...form, prescriptions: e.target.value})} />
                 </div>
 
                 <div className="form-grid-2">
@@ -120,7 +154,9 @@ export default function Journal() {
                 </div>
 
                 <div className="flex gap-3 pt-4">
-                  <button type="submit" className="btn btn-primary">{editingId ? 'Save Changes' : 'Save Visit to Journal'}</button>
+                  <button type="submit" className="btn btn-primary" disabled={saving}>
+                    {saving ? <><Loader size={16} className="spinner" /> Saving...</> : (editingId ? 'Save Changes' : 'Save Visit to Journal')}
+                  </button>
                   <button type="button" className="btn btn-secondary" onClick={() => setShowForm(false)}>Cancel</button>
                 </div>
               </form>
@@ -130,7 +166,12 @@ export default function Journal() {
       </div>
 
       <div className="container pb-5">
-        {entries.length === 0 && !showForm ? (
+        {loading ? (
+          <div className="journal-empty">
+            <div className="spinner" style={{ width: 32, height: 32 }} />
+            <p style={{ marginTop: '1rem', color: 'var(--text-muted)' }}>Loading your journal...</p>
+          </div>
+        ) : entries.length === 0 && !showForm ? (
           <div className="journal-empty">
             <div className="journal-empty-icon">📒</div>
             <h3>Your journal is empty</h3>

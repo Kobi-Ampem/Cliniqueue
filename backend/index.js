@@ -31,10 +31,12 @@ app.get('/api/health', (req, res) => {
   res.json({
     status: 'ok',
     time: new Date().toISOString(),
+    khayaAPI: process.env.GHANANLP_API_KEY ? 'configured' : 'not configured (using mock translations)',
     endpoints: [
       'GET  /api/health',
       'GET  /api/wait-times',
       'POST /api/wait-times',
+      'GET  /api/translate/languages',
       'POST /api/translate',
       'POST /api/translate/batch',
       'GET  /api/journal',
@@ -57,5 +59,6 @@ app.listen(PORT, () => {
   console.log(`\n============== ClinicPlus API ==============`)
   console.log(`  Server running on http://localhost:${PORT}`)
   console.log(`  Health check:  http://localhost:${PORT}/api/health`)
+  console.log(`  Khaya API:     ${process.env.GHANANLP_API_KEY ? 'Connected' : 'No key — using mock translations'}`)
   console.log(`============================================\n`)
 })

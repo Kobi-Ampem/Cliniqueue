@@ -6,12 +6,32 @@ dotenv.config()
 
 const router = express.Router()
 
-// Server-side translation cache: "en-tw:hello" -> "translated text"
-const cache = new Map()
-const MAX_CACHE_SIZE = 500
+const KHAYA_API_URL = process.env.GHANANLP_API_URL || 'https://translation-api.ghananlp.org/v1/translate'
+const API_KEY = process.env.GHANANLP_API_KEY
 
-function getCacheKey(text, targetLang) {
-  return `${targetLang}:${text}`
+const SUPPORTED_LANGUAGES = [
+  { code: 'en', label: 'English', nativeName: 'English' },
+  { code: 'tw', label: 'Twi', nativeName: 'Twi' },
+  { code: 'ee', label: 'Ewe', nativeName: 'Eʋegbe' },
+  { code: 'gaa', label: 'Ga', nativeName: 'Gã' },
+  { code: 'dag', label: 'Dagbani', nativeName: 'Dagbanli' },
+  { code: 'dga', label: 'Dagaare', nativeName: 'Dagaare' },
+  { code: 'fat', label: 'Fante', nativeName: 'Fante' },
+  { code: 'gur', label: 'Gurene', nativeName: 'Gurene' },
+  { code: 'nzi', label: 'Nzema', nativeName: 'Nzema' },
+  { code: 'kpo', label: 'Ghanaian Pidgin', nativeName: 'Pidgin' },
+  { code: 'yo', label: 'Yoruba', nativeName: 'Yorùbá' },
+  { code: 'ki', label: 'Kikuyu', nativeName: 'Gĩkũyũ' },
+]
+
+const VALID_LANG_CODES = new Set(SUPPORTED_LANGUAGES.map(l => l.code))
+
+// Server-side translation cache
+const cache = new Map()
+const MAX_CACHE_SIZE = 1000
+
+function getCacheKey(text, sourceLang, targetLang) {
+  return `${sourceLang}-${targetLang}:${text}`
 }
 
 function addToCache(key, value) {
@@ -26,13 +46,10 @@ function mockTranslate(text, targetLang) {
   return `[${targetLang.toUpperCase()}] ${text}`
 }
 
-const GHANA_NLP_API = process.env.GHANANLP_API_URL || 'https://translation-api.ghananlp.org/v1/translate'
-const API_KEY = process.env.GHANANLP_API_KEY
+async function translateText(text, sourceLang = 'en', targetLang) {
+  if (!text || sourceLang === targetLang) return text
 
-async function translateText(text, targetLang) {
-  if (!text || targetLang === 'en') return text
-
-  const cacheKey = getCacheKey(text, targetLang)
+  const cacheKey = getCacheKey(text, sourceLang, targetLang)
   if (cache.has(cacheKey)) {
     return cache.get(cacheKey)
   }
@@ -44,45 +61,82 @@ async function translateText(text, targetLang) {
   }
 
   try {
+    const langPair = `${sourceLang}-${targetLang}`
+
     const response = await axios.post(
-      GHANA_NLP_API,
-      { in: text, lang: `en-${targetLang}` },
+      KHAYA_API_URL,
+      { in: text, lang: langPair },
       {
         headers: {
           'Content-Type': 'application/json',
           'Ocp-Apim-Subscription-Key': API_KEY,
           'Cache-Control': 'no-cache'
         },
-        timeout: 5000
+        timeout: 8000
       }
     )
 
-    const translated = response.data?.translation || response.data || mockTranslate(text, targetLang)
+    let translated
+    if (typeof response.data === 'string') {
+      translated = response.data
+    } else if (response.data?.translation) {
+      translated = response.data.translation
+    } else if (response.data?.out) {
+      translated = response.data.out
+    } else {
+      translated = JSON.stringify(response.data)
+    }
+
     addToCache(cacheKey, translated)
     return translated
   } catch (error) {
-    console.error('Translation API Error:', error.message)
-    const fallback = mockTranslate(text, targetLang)
-    addToCache(cacheKey, fallback)
-    return fallback
+    const status = error.response?.status
+    const msg = error.response?.data || error.message
+
+    if (status === 401 || status === 403) {
+      console.error('Khaya API auth error — check your GHANANLP_API_KEY')
+    } else if (status === 429) {
+      console.error('Khaya API rate limit exceeded — slow down requests')
+    } else {
+      console.error(`Khaya API error (${status || 'network'}):`, msg)
+    }
+
+    return mockTranslate(text, targetLang)
   }
 }
 
+// GET /api/translate/languages — list supported languages
+router.get('/languages', (req, res) => {
+  res.json({
+    languages: SUPPORTED_LANGUAGES,
+    apiConfigured: !!API_KEY,
+  })
+})
+
 // POST /api/translate — single text translation
 router.post('/', async (req, res) => {
-  const { text, targetLang } = req.body
+  const { text, targetLang, sourceLang = 'en' } = req.body
 
   if (!text || !targetLang) {
     return res.status(400).json({ error: 'Missing text or targetLang' })
   }
 
-  if (!API_KEY) {
-    console.warn('No GHANANLP_API_KEY found — using mock translations')
+  if (!VALID_LANG_CODES.has(targetLang)) {
+    return res.status(400).json({
+      error: `Unsupported language: ${targetLang}`,
+      supported: [...VALID_LANG_CODES],
+    })
   }
 
   try {
-    const translatedText = await translateText(text, targetLang)
-    res.json({ translatedText })
+    const translatedText = await translateText(text, sourceLang, targetLang)
+    res.json({
+      translatedText,
+      sourceLang,
+      targetLang,
+      cached: cache.has(getCacheKey(text, sourceLang, targetLang)),
+      apiConfigured: !!API_KEY,
+    })
   } catch (err) {
     console.error('Translate error:', err)
     res.json({ translatedText: mockTranslate(text, targetLang), error: 'Translation failed' })
@@ -91,7 +145,7 @@ router.post('/', async (req, res) => {
 
 // POST /api/translate/batch — translate multiple texts at once
 router.post('/batch', async (req, res) => {
-  const { texts, targetLang } = req.body
+  const { texts, targetLang, sourceLang = 'en' } = req.body
 
   if (!Array.isArray(texts) || texts.length === 0 || !targetLang) {
     return res.status(400).json({ error: 'Missing texts array or targetLang' })
@@ -101,15 +155,28 @@ router.post('/batch', async (req, res) => {
     return res.status(400).json({ error: 'Maximum 50 texts per batch' })
   }
 
-  if (targetLang === 'en') {
+  if (!VALID_LANG_CODES.has(targetLang)) {
+    return res.status(400).json({
+      error: `Unsupported language: ${targetLang}`,
+      supported: [...VALID_LANG_CODES],
+    })
+  }
+
+  if (sourceLang === targetLang) {
     return res.json({ translations: texts })
   }
 
   try {
     const translations = await Promise.all(
-      texts.map(text => translateText(text, targetLang))
+      texts.map(text => translateText(text, sourceLang, targetLang))
     )
-    res.json({ translations })
+    res.json({
+      translations,
+      sourceLang,
+      targetLang,
+      count: translations.length,
+      apiConfigured: !!API_KEY,
+    })
   } catch (err) {
     console.error('Batch translate error:', err)
     res.json({ translations: texts.map(t => mockTranslate(t, targetLang)), error: 'Batch translation failed' })

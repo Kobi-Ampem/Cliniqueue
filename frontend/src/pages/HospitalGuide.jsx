@@ -1,15 +1,34 @@
 import { useState, useEffect } from 'react'
 import { CheckCircle, FileText, Clock, AlertCircle, ChevronDown, ChevronUp, Share2 } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
-import hospitalServices from '../data/hospitalServices.json'
+import axios from 'axios'
 import './HospitalGuide.css'
 
 export default function HospitalGuide() {
+  const [services, setServices] = useState([])
+  const [loading, setLoading] = useState(true)
   const [selected, setSelected] = useState(null)
   const [expandedSection, setExpandedSection] = useState('process')
   const { currentLang, translate } = useLanguage()
   const [translated, setTranslated] = useState(null)
   const [isTranslating, setIsTranslating] = useState(false)
+
+  useEffect(() => {
+    loadData()
+  }, [])
+
+  const loadData = async () => {
+    try {
+      const res = await axios.get('/api/hospital-services')
+      setServices(Array.isArray(res.data) ? res.data : [])
+    } catch (err) {
+      console.warn('API unavailable, loading static data')
+      const mod = await import('../data/hospitalServices.json')
+      setServices(mod.default)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     if (!selected || currentLang === 'en') {
@@ -98,15 +117,26 @@ export default function HospitalGuide() {
 
   const handleShare = async () => {
     if (!selected) return
-    const text = `ClinicPlus — ${selected.title}\n\nDocuments to bring:\n${selected.documents.map(d => `• ${d}`).join('\n')}\n\nProcess:\n${selected.process.map((p, i) => `${i+1}. ${p}`).join('\n')}\n\nNHIS: ${selected.nhisCoverage}\n\nTime: ${selected.estimatedTime}`
+    const d = display || selected
+    const text = `ClinicPlus — ${d.title}\n\nDocuments to bring:\n${(d.documents || selected.documents).map(doc => `• ${doc}`).join('\n')}\n\nProcess:\n${(d.process || selected.process).map((p, i) => `${i+1}. ${p}`).join('\n')}\n\nNHIS: ${d.nhisCoverage || selected.nhisCoverage}\n\nTime: ${d.estimatedTime || selected.estimatedTime}`
     try {
       if (navigator.share) {
-        await navigator.share({ title: `ClinicPlus — ${selected.title}`, text })
+        await navigator.share({ title: `ClinicPlus — ${d.title || selected.title}`, text })
       } else {
         await navigator.clipboard.writeText(text)
         alert('Checklist copied to clipboard!')
       }
     } catch (e) { console.warn(e) }
+  }
+
+  if (loading) {
+    return (
+      <div className="guide-wrapper">
+        <div className="container" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '50vh' }}>
+          <div className="spinner" style={{ width: 32, height: 32 }} />
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -127,9 +157,8 @@ export default function HospitalGuide() {
 
       <div className="container">
         <div className="guide-layout">
-          {/* Service Selector */}
           <div className="service-list animate-stagger">
-            {hospitalServices.map(svc => (
+            {services.map(svc => (
               <button
                 key={svc.id}
                 id={`service-${svc.id}`}
@@ -147,7 +176,6 @@ export default function HospitalGuide() {
             ))}
           </div>
 
-          {/* Detail */}
           <div className="guide-detail">
             {!selected ? (
               <div className="guide-empty">
@@ -157,7 +185,6 @@ export default function HospitalGuide() {
               </div>
             ) : (
               <div className="guide-detail-content animate-fade-in" key={selected.id}>
-                {/* Header */}
                 <div className="guide-detail-header" style={{ '--gd-color': selected.color }}>
                   <div className="gd-emoji">{selected.emoji}</div>
                   <div className="gd-info">
@@ -169,7 +196,6 @@ export default function HospitalGuide() {
                   </button>
                 </div>
 
-                {/* Quick Info */}
                 <div className="guide-quick-info">
                   <div className="quick-info-item">
                     <Clock size={16} style={{ color: 'var(--color-accent)' }} />
@@ -194,7 +220,6 @@ export default function HospitalGuide() {
                   </div>
                 </div>
 
-                {/* Accordion Sections */}
                 <div className="guide-sections">
                   {isTranslating ? (
                     <div className="flex items-center gap-3" style={{ padding: '2rem', justifyContent: 'center', color: 'var(--text-muted)' }}>
