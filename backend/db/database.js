@@ -45,7 +45,7 @@ export function initDB() {
   if (result.count === 0) {
     console.log('Seeding initial wait time data...')
 
-    const facilitiesPath = path.resolve(__dirname, '../../src/data/facilities.json')
+    const facilitiesPath = path.resolve(__dirname, '../../frontend/src/data/facilities.json')
     if (fs.existsSync(facilitiesPath)) {
       const facilities = JSON.parse(fs.readFileSync(facilitiesPath, 'utf8'))
       const insert = db.prepare(`

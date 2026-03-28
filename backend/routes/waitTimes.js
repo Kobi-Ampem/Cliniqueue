@@ -11,7 +11,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url))
 router.get('/', (req, res) => {
   try {
     // Read base structure from frontend JSON
-    const dataPath = path.resolve(__dirname, '../../src/data/facilities.json')
+    const dataPath = path.resolve(__dirname, '../../frontend/src/data/facilities.json')
     const facilities = JSON.parse(fs.readFileSync(dataPath))
 
     // Pull wait reports from DB

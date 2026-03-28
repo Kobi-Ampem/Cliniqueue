@@ -7,7 +7,7 @@ const router = express.Router()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 function loadFirstAidData() {
-  const dataPath = path.resolve(__dirname, '../../src/data/firstAidData.json')
+  const dataPath = path.resolve(__dirname, '../../frontend/src/data/firstAidData.json')
   return JSON.parse(fs.readFileSync(dataPath, 'utf8'))
 }
 
