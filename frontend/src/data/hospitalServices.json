@@ -1,0 +1,192 @@
+[
+  {
+    "id": "opd",
+    "name": "General OPD visit",
+    "documents": "NHIS card, hospital folder or card (if returning), referral letter if you were referred, valid ID if asked.",
+    "bring": "Comfortable clothing, water bottle, small snack for long waits, your own pen for forms, cash or mobile money for items not covered.",
+    "process": [
+      "Register or renew folder at records / front desk.",
+      "Pay any required levies or show NHIS as directed.",
+      "Vitals (BP, temperature, weight) may be taken at triage or nurses’ station.",
+      "Wait for your queue number to be called for consultation.",
+      "See the doctor; you may be sent for lab, pharmacy, or imaging.",
+      "Complete pharmacy or lab steps before leaving if prescribed."
+    ],
+    "nhis": "Consultation often covered on active NHIS; some drugs, consumables, or certain tests may be partly or fully out-of-pocket depending on facility policy.",
+    "time": "About 2–4 hours total on busy days; longer if labs or imaging are needed.",
+    "tips": "Arrive early (before 8am) for a lower queue number. Bring a book or charger. Ask staff where to wait after each step."
+  },
+  {
+    "id": "antenatal-first",
+    "name": "Antenatal care (first visit)",
+    "documents": "NHIS card, ID, any old antenatal records, partner contact if the facility requests emergency details.",
+    "bring": "Urine sample in a clean container if your clinic expects it on first visit — ask locally, water, snacks.",
+    "process": [
+      "Register at ANC clinic; complete intake forms.",
+      "Urine and possibly blood tests; vitals and history taken.",
+      "Consultation with midwife or doctor; dating scan may be scheduled.",
+      "Counselling on nutrition, danger signs, and next visits.",
+      "Receive next appointment date."
+    ],
+    "nhis": "Routine ANC visits are often covered; some tests or supplements may require payment — confirm at the facility.",
+    "time": "About 2–3 hours for first booking; allow a full morning.",
+    "tips": "Call ahead to confirm if first-morning urine is needed. Wear easy clothing for examination."
+  },
+  {
+    "id": "antenatal-follow",
+    "name": "Antenatal care (follow-up)",
+    "documents": "NHIS card, antenatal record book, previous lab results if any.",
+    "bring": "Urine sample if your clinic asks each visit, water, snack.",
+    "process": [
+      "Check in at ANC desk with your book.",
+      "Urine dipstick and vitals (weight, BP).",
+      "Queue for midwife/doctor review.",
+      "Any scheduled immunizations or labs.",
+      "Next appointment written in your book."
+    ],
+    "nhis": "Usually covered similarly to first visit; extra tests may be billed separately.",
+    "time": "About 1–2 hours depending on queue.",
+    "tips": "Book early in the day when possible. Note any new swelling, headache, or vision changes to report."
+  },
+  {
+    "id": "dental",
+    "name": "Dental check-up",
+    "documents": "NHIS if accepted for dental at that facility, ID, cash/mobile money for materials sometimes charged.",
+    "bring": "Toothbrush if asked to clean before exam; arrive with brushed teeth when possible.",
+    "process": [
+      "Register and pay if required.",
+      "Initial oral exam; X-ray may be ordered.",
+      "Treatment plan discussed (cleaning, filling, referral).",
+      "Procedure same day or new appointment.",
+      "Prescriptions to pharmacy if given."
+    ],
+    "nhis": "Dental benefit on NHIS varies — many items are out-of-pocket; confirm at the dental desk.",
+    "time": "About 45–90 minutes for a simple check; longer with X-ray or procedure.",
+    "tips": "Morning appointments may run closer to time. Mention pain, bleeding gums, or sensitivity clearly."
+  },
+  {
+    "id": "eye",
+    "name": "Eye clinic",
+    "documents": "NHIS if applicable, old glasses or prescription, referral if required.",
+    "bring": "Sunglasses for dilation recovery; someone to accompany you if pupils will be dilated.",
+    "process": [
+      "Registration and vision checks.",
+      "Tonometry or other tests as needed.",
+      "Ophthalmic consultation.",
+      "Glasses prescription or medication.",
+      "Theatre booking only if surgery planned."
+    ],
+    "nhis": "Basic consultation may be covered; lenses, frames, and some drops often self-pay.",
+    "time": "About 1–3 hours; longer if drops need time to work.",
+    "tips": "Do not drive yourself if dilating drops are used. Bring a list of current medications."
+  },
+  {
+    "id": "lab",
+    "name": "Lab tests (blood, urine, etc.)",
+    "documents": "Lab request form from doctor, NHIS card, hospital number, ID if requested.",
+    "bring": "Fasting if your test requires it (often 8–12 hours — confirm on the form), water only if allowed, clean container for urine if take-home sample.",
+    "process": [
+      "Present request at lab reception.",
+      "Payment or NHIS verification.",
+      "Sample collection (blood, urine, stool, etc.).",
+      "Ask when results will be ready and where to collect them.",
+      "Return results to your requesting doctor."
+    ],
+    "nhis": "Many routine tests are covered; specialised panels may be partly or fully paid by patient.",
+    "time": "Sample collection often 30–60 minutes of waiting; result turnaround varies.",
+    "tips": "Arrive early for fasting slots. Label containers carefully. Keep receipt and lab number."
+  },
+  {
+    "id": "imaging",
+    "name": "X-ray / imaging",
+    "documents": "Radiology request form, NHIS card, payment receipt if required.",
+    "bring": "Remove metal/jewellery as instructed; wear clothes without zippers if possible for some scans.",
+    "process": [
+      "Register at radiology.",
+      "Wait for technologist call.",
+      "Positioning and exposure (follow instructions to hold still).",
+      "Collect film/report when ready or sent electronically to doctor."
+    ],
+    "nhis": "Basic X-rays may be covered; CT/MRI often largely out-of-pocket unless special approval.",
+    "time": "About 1–2 hours including queue; complex scans may be scheduled another day.",
+    "tips": "Pregnant or possibly pregnant patients must inform staff before X-ray. Bring previous images for comparison."
+  },
+  {
+    "id": "pharmacy-only",
+    "name": "Pharmacy only",
+    "documents": "Prescription or last visit card, NHIS, payment method.",
+    "bring": "Old drug packages if you need a refill with same brand; cooler bag for items needing cold chain.",
+    "process": [
+      "Queue at pharmacy window with valid prescription.",
+      "NHIS verification for covered medicines.",
+      "Pay co-payment or full cost for non-covered items.",
+      "Check labels: dose, duration, and storage.",
+      "Ask how to take with food or empty stomach."
+    ],
+    "nhis": "NHIS formulary covers specific drugs; brand upgrades or non-listed drugs are usually paid by patient.",
+    "time": "About 20–60 minutes depending on queue and stock availability.",
+    "tips": "Generic substitutes may be cheaper if NHIS does not cover a brand. Confirm expiry dates before leaving."
+  },
+  {
+    "id": "child-welfare",
+    "name": "Child welfare clinic (weighing)",
+    "documents": "Child health record book, NHIS, immunisation card.",
+    "bring": "Diaper bag, feeding supplies, small towel; baby in light clothing for accurate weight.",
+    "process": [
+      "Register at CWC.",
+      "Growth monitoring: weight, height, sometimes MUAC.",
+      "Nutrition counselling and vitamin A or deworming when due.",
+      "Immunizations if scheduled.",
+      "Next visit date recorded."
+    ],
+    "nhis": "Often covered for routine CWC services; some supplements may have small charges.",
+    "time": "About 1–2 hours on busy days.",
+    "tips": "Arrive early. Track feeding concerns to mention."
+  },
+  {
+    "id": "family-planning",
+    "name": "Family planning",
+    "documents": "NHIS or ID as required.",
+    "bring": "List of current medicines; calendar of last period if discussing hormonal methods.",
+    "process": [
+      "Private counselling on options.",
+      "Basic vitals and sometimes pregnancy test.",
+      "Method provided or referral.",
+      "Follow-up date for side effects review."
+    ],
+    "nhis": "Many services subsidised or free in public facilities; confirm implant/IUCD fees locally.",
+    "time": "About 45–90 minutes; implant or IUCD may need a longer slot.",
+    "tips": "Ask about side effects and what to do if heavy bleeding or severe headache occurs."
+  },
+  {
+    "id": "emergency",
+    "name": "Emergency / A&E",
+    "documents": "Any ID, NHIS, contact of relative, list of allergies and medicines.",
+    "bring": "Cash/mobile money for items not covered; minimal belongings so staff can work quickly.",
+    "process": [
+      "Triage nurse assesses urgency — most serious cases seen first.",
+      "Registration may happen at bedside in critical cases.",
+      "Examination, tests, and treatment in emergency unit.",
+      "Admission to ward or discharge with prescription."
+    ],
+    "nhis": "Emergency fees and some consumables may be billed; stabilisation is priority.",
+    "time": "Highly variable: minutes for critical care; several hours for non-urgent complaints.",
+    "tips": "Stay calm; give short clear history. One family spokesperson reduces confusion."
+  },
+  {
+    "id": "specialist",
+    "name": "Specialist referral",
+    "documents": "Referral letter from first doctor, NHIS, all prior results and imaging, hospital folder.",
+    "bring": "Chronological list of symptoms and treatments tried; questions written down.",
+    "process": [
+      "Book specialist clinic (may be weeks ahead).",
+      "Register and pay specialist levy if required.",
+      "Consultation; specialist may order new tests.",
+      "Plan: surgery, medical treatment, or further referral.",
+      "Follow-up appointment scheduling."
+    ],
+    "nhis": "Specialist levies and some procedures may be partly covered — varies by hospital and scheme.",
+    "time": "First visit often 2–4 hours including tests; review visits shorter.",
+    "tips": "Bring copies of results for your own file. Ask when to return if symptoms worsen before the next date."
+  }
+]
