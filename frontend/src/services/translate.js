@@ -13,6 +13,24 @@ const KHAYA_LANG_PAIR = {
   ga: 'en-gaa',
 }
 
+/** Backend /api/translate uses GhanaNLP lang codes (see backend/routes/translate.js). */
+const PROXY_TARGET_LANG = {
+  tw: 'tw',
+  ewe: 'ee',
+  ga: 'gaa',
+}
+
+/** Empty string = same-origin `/api/...` (Vite dev proxy + Vercel rewrite → Render). */
+function translateApiOrigin() {
+  const b = import.meta.env.VITE_API_BASE_URL
+  return (b && String(b).trim().replace(/\/$/, '')) || ''
+}
+
+function translateBackendUrl() {
+  const o = translateApiOrigin()
+  return o ? `${o}/api/translate` : '/api/translate'
+}
+
 export const SUPPORTED_LANGS = [
   { code: 'en', label: 'English' },
   { code: 'tw', label: 'Twi' },
@@ -106,6 +124,44 @@ export async function translateText(text, targetCode, opts = {}) {
   if (disk[key]) {
     mem?.set(key, disk[key])
     return { ok: true, text: disk[key], fromCache: true }
+  }
+
+  const targetLang = PROXY_TARGET_LANG[targetCode]
+  if (!targetLang) {
+    return { ok: false, text: trimmed, reason: 'unsupported_lang' }
+  }
+
+  try {
+    const res = await fetch(translateBackendUrl(), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Cache-Control': 'no-cache',
+      },
+      body: JSON.stringify({
+        text: trimmed,
+        targetLang,
+        sourceLang: 'en',
+      }),
+      signal: opts.signal,
+    })
+
+    if (res.ok) {
+      const data = await res.json()
+      const out =
+        typeof data?.translatedText === 'string'
+          ? data.translatedText.trim()
+          : pickTranslated(data)
+      if (typeof out === 'string' && out.trim()) {
+        disk[key] = out
+        saveDiskCache(disk)
+        mem?.set(key, out)
+        return { ok: true, text: out, fromCache: false }
+      }
+    }
+  } catch (e) {
+    if (e?.name === 'AbortError') throw e
+    /* fall through to direct Khaya if configured */
   }
 
   const url = translateUrl()
