@@ -38,7 +38,7 @@ export async function initDB() {
 }
 
 async function seedWaitReports() {
-  const { default: facilities } = await import('../../frontend/src/data/facilities.json', { assert: { type: 'json' } })
+  const { default: facilities } = await import('../../frontend/src/data/facilities.json', { with: { type: 'json' } })
 
   const rows = []
   for (const f of facilities) {
