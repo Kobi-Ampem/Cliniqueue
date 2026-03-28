@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { AlertTriangle, ChevronRight } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
-import axios from 'axios'
+import api from '../lib/api'
 import './FirstAid.css'
 
 const SEVERITY_LABELS = {
@@ -24,7 +24,7 @@ export default function FirstAid() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get('/api/first-aid')
+      const res = await api.get('/api/first-aid')
       setEmergencies(Array.isArray(res.data) ? res.data : [])
     } catch (err) {
       console.warn('API unavailable, loading static data')

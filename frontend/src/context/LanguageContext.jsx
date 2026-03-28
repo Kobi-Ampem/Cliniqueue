@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useCallback } from 'react'
-import axios from 'axios'
+import api from '../lib/api'
 
 const LanguageContext = createContext(null)
 
@@ -26,7 +26,7 @@ export function LanguageProvider({ children }) {
     }
 
     try {
-      const response = await axios.post('/api/translate', {
+      const response = await api.post('/api/translate', {
         text,
         targetLang,
       }, { timeout: 8000 })

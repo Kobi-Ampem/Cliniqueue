@@ -1,7 +1,7 @@
 import express from 'express'
 import axios from 'axios'
 import dotenv from 'dotenv'
-import db from '../db/database.js'
+import supabase from '../db/database.js'
 
 dotenv.config()
 
@@ -27,39 +27,42 @@ const SUPPORTED_LANGUAGES = [
 
 const VALID_LANG_CODES = new Set(SUPPORTED_LANGUAGES.map(l => l.code))
 
-// --- Two-tier cache: fast in-memory Map + persistent SQLite ---
-
+// Fast in-memory cache (first tier)
 const memCache = new Map()
 const MAX_MEM_CACHE = 2000
-
-const dbGet = db.prepare(
-  'SELECT translatedText FROM translation_cache WHERE sourceLang = ? AND targetLang = ? AND sourceText = ?'
-)
-const dbInsert = db.prepare(
-  'INSERT OR REPLACE INTO translation_cache (sourceLang, targetLang, sourceText, translatedText) VALUES (?, ?, ?, ?)'
-)
 
 function getCacheKey(sourceLang, targetLang, text) {
   return `${sourceLang}-${targetLang}:${text}`
 }
 
-function getFromCache(sourceLang, targetLang, text) {
+async function getFromCache(sourceLang, targetLang, text) {
   const memKey = getCacheKey(sourceLang, targetLang, text)
   if (memCache.has(memKey)) return memCache.get(memKey)
 
-  const row = dbGet.get(sourceLang, targetLang, text)
-  if (row) {
-    if (memCache.size >= MAX_MEM_CACHE) {
-      const firstKey = memCache.keys().next().value
-      memCache.delete(firstKey)
+  try {
+    const { data } = await supabase
+      .from('translation_cache')
+      .select('translated_text')
+      .eq('source_lang', sourceLang)
+      .eq('target_lang', targetLang)
+      .eq('source_text', text)
+      .single()
+
+    if (data) {
+      if (memCache.size >= MAX_MEM_CACHE) {
+        const firstKey = memCache.keys().next().value
+        memCache.delete(firstKey)
+      }
+      memCache.set(memKey, data.translated_text)
+      return data.translated_text
     }
-    memCache.set(memKey, row.translatedText)
-    return row.translatedText
+  } catch {
+    // cache miss
   }
   return null
 }
 
-function saveToCache(sourceLang, targetLang, text, translatedText) {
+async function saveToCache(sourceLang, targetLang, text, translatedText) {
   const memKey = getCacheKey(sourceLang, targetLang, text)
   if (memCache.size >= MAX_MEM_CACHE) {
     const firstKey = memCache.keys().next().value
@@ -68,7 +71,12 @@ function saveToCache(sourceLang, targetLang, text, translatedText) {
   memCache.set(memKey, translatedText)
 
   try {
-    dbInsert.run(sourceLang, targetLang, text, translatedText)
+    await supabase.from('translation_cache').upsert({
+      source_lang: sourceLang,
+      target_lang: targetLang,
+      source_text: text,
+      translated_text: translatedText,
+    }, { onConflict: 'source_lang,target_lang,source_text' })
   } catch (err) {
     console.error('Cache write error:', err.message)
   }
@@ -81,12 +89,12 @@ function mockTranslate(text, targetLang) {
 async function translateText(text, sourceLang = 'en', targetLang) {
   if (!text || sourceLang === targetLang) return text
 
-  const cached = getFromCache(sourceLang, targetLang, text)
+  const cached = await getFromCache(sourceLang, targetLang, text)
   if (cached) return cached
 
   if (!API_KEY) {
     const mocked = mockTranslate(text, targetLang)
-    saveToCache(sourceLang, targetLang, text, mocked)
+    await saveToCache(sourceLang, targetLang, text, mocked)
     return mocked
   }
 
@@ -115,7 +123,7 @@ async function translateText(text, sourceLang = 'en', targetLang) {
       translated = JSON.stringify(response.data)
     }
 
-    saveToCache(sourceLang, targetLang, text, translated)
+    await saveToCache(sourceLang, targetLang, text, translated)
     return translated
   } catch (error) {
     const status = error.response?.status
@@ -133,7 +141,6 @@ async function translateText(text, sourceLang = 'en', targetLang) {
   }
 }
 
-// GET /api/translate/languages
 router.get('/languages', (req, res) => {
   res.json({
     languages: SUPPORTED_LANGUAGES,
@@ -141,20 +148,21 @@ router.get('/languages', (req, res) => {
   })
 })
 
-// GET /api/translate/cache-stats
-router.get('/cache-stats', (req, res) => {
-  const total = db.prepare('SELECT COUNT(*) as count FROM translation_cache').get()
-  const byLang = db.prepare(
-    'SELECT targetLang, COUNT(*) as count FROM translation_cache GROUP BY targetLang ORDER BY count DESC'
-  ).all()
-  res.json({
-    memoryCache: memCache.size,
-    persistentCache: total.count,
-    byLanguage: byLang,
-  })
+router.get('/cache-stats', async (req, res) => {
+  try {
+    const { count } = await supabase
+      .from('translation_cache')
+      .select('*', { count: 'exact', head: true })
+
+    res.json({
+      memoryCache: memCache.size,
+      persistentCache: count || 0,
+    })
+  } catch {
+    res.json({ memoryCache: memCache.size, persistentCache: 'error' })
+  }
 })
 
-// POST /api/translate
 router.post('/', async (req, res) => {
   const { text, targetLang, sourceLang = 'en' } = req.body
 
@@ -178,7 +186,6 @@ router.post('/', async (req, res) => {
   }
 })
 
-// POST /api/translate/batch
 router.post('/batch', async (req, res) => {
   const { texts, targetLang, sourceLang = 'en' } = req.body
 

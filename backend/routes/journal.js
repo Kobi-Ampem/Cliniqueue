@@ -1,38 +1,43 @@
 import express from 'express'
-import db from '../db/database.js'
-import crypto from 'crypto'
+import supabase from '../db/database.js'
 
 const router = express.Router()
 
-// GET /api/journal — fetch all entries, newest first
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const entries = db.prepare(
-      'SELECT * FROM journal_entries ORDER BY date DESC, createdAt DESC'
-    ).all()
-    res.json(entries)
+    const { data, error } = await supabase
+      .from('journal_entries')
+      .select('*')
+      .order('date', { ascending: false })
+      .order('created_at', { ascending: false })
+
+    if (error) throw error
+    res.json(data || [])
   } catch (err) {
     console.error('Journal GET error:', err)
     res.status(500).json({ error: 'Failed to fetch journal entries' })
   }
 })
 
-// GET /api/journal/:id — fetch single entry
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const entry = db.prepare('SELECT * FROM journal_entries WHERE id = ?').get(req.params.id)
-    if (!entry) {
+    const { data, error } = await supabase
+      .from('journal_entries')
+      .select('*')
+      .eq('id', req.params.id)
+      .single()
+
+    if (error || !data) {
       return res.status(404).json({ error: 'Entry not found' })
     }
-    res.json(entry)
+    res.json(data)
   } catch (err) {
     console.error('Journal GET/:id error:', err)
     res.status(500).json({ error: 'Failed to fetch journal entry' })
   }
 })
 
-// POST /api/journal — create new entry
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { date, facility, service, doctor, diagnosis, prescriptions, nextDate, notes } = req.body
 
   if (!date || !facility || !service) {
@@ -40,26 +45,33 @@ router.post('/', (req, res) => {
   }
 
   try {
-    const id = crypto.randomUUID()
     const now = new Date().toISOString()
+    const { data, error } = await supabase
+      .from('journal_entries')
+      .insert({
+        date,
+        facility,
+        service,
+        doctor: doctor || '',
+        diagnosis: diagnosis || '',
+        prescriptions: prescriptions || '',
+        next_date: nextDate || '',
+        notes: notes || '',
+        created_at: now,
+        updated_at: now,
+      })
+      .select()
+      .single()
 
-    const stmt = db.prepare(`
-      INSERT INTO journal_entries (id, date, facility, service, doctor, diagnosis, prescriptions, nextDate, notes, createdAt, updatedAt)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `)
-
-    stmt.run(id, date, facility, service, doctor || '', diagnosis || '', prescriptions || '', nextDate || '', notes || '', now, now)
-
-    const entry = db.prepare('SELECT * FROM journal_entries WHERE id = ?').get(id)
-    res.status(201).json(entry)
+    if (error) throw error
+    res.status(201).json(data)
   } catch (err) {
     console.error('Journal POST error:', err)
     res.status(500).json({ error: 'Failed to create journal entry' })
   }
 })
 
-// PUT /api/journal/:id — update existing entry
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   const { date, facility, service, doctor, diagnosis, prescriptions, nextDate, notes } = req.body
 
   if (!date || !facility || !service) {
@@ -67,37 +79,42 @@ router.put('/:id', (req, res) => {
   }
 
   try {
-    const existing = db.prepare('SELECT * FROM journal_entries WHERE id = ?').get(req.params.id)
-    if (!existing) {
+    const now = new Date().toISOString()
+    const { data, error } = await supabase
+      .from('journal_entries')
+      .update({
+        date,
+        facility,
+        service,
+        doctor: doctor || '',
+        diagnosis: diagnosis || '',
+        prescriptions: prescriptions || '',
+        next_date: nextDate || '',
+        notes: notes || '',
+        updated_at: now,
+      })
+      .eq('id', req.params.id)
+      .select()
+      .single()
+
+    if (error || !data) {
       return res.status(404).json({ error: 'Entry not found' })
     }
-
-    const now = new Date().toISOString()
-    const stmt = db.prepare(`
-      UPDATE journal_entries
-      SET date = ?, facility = ?, service = ?, doctor = ?, diagnosis = ?, prescriptions = ?, nextDate = ?, notes = ?, updatedAt = ?
-      WHERE id = ?
-    `)
-
-    stmt.run(date, facility, service, doctor || '', diagnosis || '', prescriptions || '', nextDate || '', notes || '', now, req.params.id)
-
-    const entry = db.prepare('SELECT * FROM journal_entries WHERE id = ?').get(req.params.id)
-    res.json(entry)
+    res.json(data)
   } catch (err) {
     console.error('Journal PUT error:', err)
     res.status(500).json({ error: 'Failed to update journal entry' })
   }
 })
 
-// DELETE /api/journal/:id — delete entry
-router.delete('/:id', (req, res) => {
+router.delete('/:id', async (req, res) => {
   try {
-    const existing = db.prepare('SELECT * FROM journal_entries WHERE id = ?').get(req.params.id)
-    if (!existing) {
-      return res.status(404).json({ error: 'Entry not found' })
-    }
+    const { error } = await supabase
+      .from('journal_entries')
+      .delete()
+      .eq('id', req.params.id)
 
-    db.prepare('DELETE FROM journal_entries WHERE id = ?').run(req.params.id)
+    if (error) throw error
     res.json({ success: true, message: 'Entry deleted' })
   } catch (err) {
     console.error('Journal DELETE error:', err)

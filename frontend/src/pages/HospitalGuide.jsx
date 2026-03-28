@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { CheckCircle, FileText, Clock, AlertCircle, ChevronDown, ChevronUp, Share2 } from 'lucide-react'
 import { useLanguage } from '../context/LanguageContext'
-import axios from 'axios'
+import api from '../lib/api'
 import './HospitalGuide.css'
 
 export default function HospitalGuide() {
@@ -19,7 +19,7 @@ export default function HospitalGuide() {
 
   const loadData = async () => {
     try {
-      const res = await axios.get('/api/hospital-services')
+      const res = await api.get('/api/hospital-services')
       setServices(Array.isArray(res.data) ? res.data : [])
     } catch (err) {
       console.warn('API unavailable, loading static data')

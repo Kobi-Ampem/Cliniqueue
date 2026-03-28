@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Plus, Calendar, MapPin, Trash2, Edit2, Loader } from 'lucide-react'
-import axios from 'axios'
+import api from '../lib/api'
 import './Journal.css'
 
 const emptyForm = {
@@ -28,7 +28,7 @@ export default function Journal() {
 
   const fetchEntries = async () => {
     try {
-      const res = await axios.get('/api/journal')
+      const res = await api.get('/api/journal')
       setEntries(Array.isArray(res.data) ? res.data : [])
     } catch (err) {
       console.warn('Failed to load journal from API, falling back to localStorage')
@@ -44,10 +44,10 @@ export default function Journal() {
     setSaving(true)
     try {
       if (editingId) {
-        const res = await axios.put(`/api/journal/${editingId}`, form)
+        const res = await api.put(`/api/journal/${editingId}`, form)
         setEntries(entries.map(ent => ent.id === editingId ? res.data : ent))
       } else {
-        const res = await axios.post('/api/journal', form)
+        const res = await api.post('/api/journal', form)
         setEntries([res.data, ...entries])
       }
       setEditingId(null)
@@ -80,7 +80,7 @@ export default function Journal() {
   const handleDelete = async (id) => {
     if (!window.confirm('Delete this visit record? This cannot be undone.')) return
     try {
-      await axios.delete(`/api/journal/${id}`)
+      await api.delete(`/api/journal/${id}`)
       setEntries(entries.filter(e => e.id !== id))
     } catch (err) {
       console.error('Delete failed:', err)

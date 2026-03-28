@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Clock, Users, Plus, ChevronDown, CheckCircle } from 'lucide-react'
-import axios from 'axios'
+import api from '../lib/api'
 import './WaitTimes.css'
 
 function formatTime(minutes) {
@@ -39,7 +39,7 @@ export default function WaitTimes() {
 
   const loadFacilities = async () => {
     try {
-      const res = await axios.get('/api/wait-times')
+      const res = await api.get('/api/wait-times')
       if (res.data && Array.isArray(res.data)) {
         setFacilities(res.data)
       }
@@ -61,10 +61,10 @@ export default function WaitTimes() {
     e.preventDefault()
     setSubmitting(true)
     try {
-      await axios.post('/api/wait-times', form)
+      await api.post('/api/wait-times', form)
       setSubmitted(true)
       setTimeout(() => { setSubmitted(false); setShowForm(false) }, 3000)
-      const res = await axios.get('/api/wait-times')
+      const res = await api.get('/api/wait-times')
       if (res.data) setFacilities(res.data)
     } catch (err) {
       setSubmitted(true)

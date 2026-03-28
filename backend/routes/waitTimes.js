@@ -1,5 +1,5 @@
 import express from 'express'
-import db from '../db/database.js'
+import supabase from '../db/database.js'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -7,31 +7,27 @@ import { fileURLToPath } from 'url'
 const router = express.Router()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-// Get all facilities with their calculated wait times
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    // Read base structure from frontend JSON
     const dataPath = path.resolve(__dirname, '../../frontend/src/data/facilities.json')
     const facilities = JSON.parse(fs.readFileSync(dataPath))
 
-    // Pull wait reports from DB
-    const reports = db.prepare('SELECT * FROM wait_reports').all()
+    const { data: reports, error } = await supabase
+      .from('wait_reports')
+      .select('*')
 
-    // Map DB reports back onto base JSON structure
+    if (error) throw error
+
     const enriched = facilities.map(fac => {
-      const facReports = reports.filter(r => r.facilityId === fac.id)
-      
-      const newServices = fac.services.map(svc => {
-        // Find reports for this specific service
-        const svcReports = facReports.filter(r => r.service === svc.name)
+      const facReports = (reports || []).filter(r => r.facility_id === fac.id)
 
+      const newServices = fac.services.map(svc => {
+        const svcReports = facReports.filter(r => r.service === svc.name)
         if (svcReports.length === 0) return svc
 
-        // Calculate a basic average
         const totalWait = svcReports.reduce((sum, r) => sum + r.minutes, 0)
-        let newAvg = Math.round(totalWait / svcReports.length)
-        
-        // Add a count based on reports length plus base reportCount to simulate a bigger dataset
+        const newAvg = Math.round(totalWait / svcReports.length)
+
         return {
           ...svc,
           avgWaitMinutes: newAvg,
@@ -39,10 +35,7 @@ router.get('/', (req, res) => {
         }
       })
 
-      return {
-        ...fac,
-        services: newServices
-      }
+      return { ...fac, services: newServices }
     })
 
     res.json(enriched)
@@ -52,8 +45,7 @@ router.get('/', (req, res) => {
   }
 })
 
-// Submit a new wait time report
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const { facilityId, service, minutes, timeOfDay } = req.body
 
   if (!facilityId || !service || typeof minutes !== 'number' || !timeOfDay) {
@@ -61,10 +53,14 @@ router.post('/', (req, res) => {
   }
 
   try {
-    const insert = db.prepare('INSERT INTO wait_reports (facilityId, service, minutes, timeOfDay) VALUES (?, ?, ?, ?)')
-    const result = insert.run(facilityId, service, minutes, timeOfDay)
-    
-    res.status(201).json({ success: true, id: result.lastInsertRowid })
+    const { data, error } = await supabase
+      .from('wait_reports')
+      .insert({ facility_id: facilityId, service, minutes, time_of_day: timeOfDay })
+      .select()
+      .single()
+
+    if (error) throw error
+    res.status(201).json({ success: true, id: data.id })
   } catch (err) {
     console.error('Insert error:', err)
     res.status(500).json({ error: 'Failed to save wait time' })
