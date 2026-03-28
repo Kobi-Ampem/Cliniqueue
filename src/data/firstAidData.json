@@ -1,0 +1,308 @@
+[
+  {
+    "id": "burns",
+    "title": "Burns",
+    "emoji": "🔥",
+    "color": "#EF4444",
+    "severity": "critical",
+    "subtitle": "Fire, hot water, chemical burns",
+    "steps": [
+      "Move the person away from the heat source immediately. Do NOT touch them if they are still in contact with electricity.",
+      "Cool the burn under COOL (not cold/icy) running water for at least 10–20 minutes. Start this as soon as possible.",
+      "Do NOT apply toothpaste, butter, shea butter, egg white, or any home remedy — these cause infection.",
+      "Remove jewellery (rings, bracelets) and clothing near the burn, unless it is stuck to the skin.",
+      "Cover the burn loosely with a clean, non-fluffy cloth or cling wrap. Do NOT use cotton wool.",
+      "Do NOT burst any blisters — they protect against infection.",
+      "If the burn is larger than the person's palm, on the face/hands/feet/genitals, or the skin looks white/black/leathery — GO TO THE HOSPITAL IMMEDIATELY."
+    ],
+    "warnings": [
+      "Never use ice directly on a burn.",
+      "Never apply toothpaste, shea butter, or butter.",
+      "Never pop blisters."
+    ],
+    "whenToGoToHospital": "Any burn larger than the person's palm, burns on face/hands/genitals, deep burns, chemical burns, or burns with difficulty breathing."
+  },
+  {
+    "id": "choking",
+    "title": "Choking",
+    "emoji": "🫁",
+    "color": "#DC2626",
+    "severity": "critical",
+    "subtitle": "Adult, child, and infant",
+    "steps": [
+      "Ask the person 'Are you choking?' If they can speak, cough, or breathe — encourage them to keep coughing. Do NOT interfere.",
+      "If they CANNOT speak, cough, or breathe: Stand behind them. Give 5 firm back blows between the shoulder blades with the heel of your hand.",
+      "If back blows don't clear it: Perform 5 abdominal thrusts (Heimlich manoeuvre). Place one fist just above their belly button, grab your fist with your other hand, and thrust inward and upward sharply.",
+      "Alternate 5 back blows and 5 abdominal thrusts until the object comes out or the person can breathe.",
+      "If they become unconscious, lower them gently to the ground and call for help. Begin CPR if you know how.",
+      "FOR INFANTS (under 1 year): Lay face-down on your forearm, support the head, give 5 gentle back blows. Then flip face-up and give 5 chest thrusts with 2 fingers on the breastbone. NEVER do abdominal thrusts on infants."
+    ],
+    "warnings": [
+      "Never do abdominal thrusts on infants under 1 year.",
+      "Never do a blind finger sweep — you may push the object deeper.",
+      "Do not interfere if they can still cough forcefully."
+    ],
+    "whenToGoToHospital": "After any choking episode, especially if the person lost consciousness, is still having difficulty breathing, or if you are unsure whether the object was fully cleared."
+  },
+  {
+    "id": "bleeding",
+    "title": "Bleeding / Wounds",
+    "emoji": "🩸",
+    "color": "#B91C1C",
+    "severity": "critical",
+    "subtitle": "Cuts, lacerations, open wounds",
+    "steps": [
+      "Protect yourself — wear gloves if available, or use a plastic bag. Avoid direct contact with another person's blood.",
+      "Apply DIRECT pressure to the wound using a clean cloth, pad, or bandage. Press firmly and hold — do NOT keep lifting to check.",
+      "If blood soaks through the cloth, add MORE cloth on top. Do NOT remove the first cloth.",
+      "Elevate the wounded area above the heart level if possible (e.g., raise the arm or leg).",
+      "Maintain pressure for at least 10–15 minutes. Do not release too early.",
+      "Once bleeding slows, secure the dressing with a bandage. Do not tie so tightly that it cuts off circulation.",
+      "Seek medical help if: the wound is deep, gaping wide, has a foreign object in it, or bleeding does not stop after 15 minutes of firm pressure."
+    ],
+    "warnings": [
+      "Do NOT remove an embedded object from a wound — it may be plugging a blood vessel.",
+      "Do NOT use a tourniquet unless you are trained to do so.",
+      "Do NOT apply salt, toothpaste, or any substances to the wound."
+    ],
+    "whenToGoToHospital": "Wound is deep, gaping, won't stop bleeding after 15 minutes, has a foreign object embedded, or involves the face/eye/chest/abdomen."
+  },
+  {
+    "id": "snakebite",
+    "title": "Snake Bite",
+    "emoji": "🐍",
+    "color": "#65A30D",
+    "severity": "critical",
+    "subtitle": "Venomous or unknown snake",
+    "steps": [
+      "Keep calm and keep the person as still as possible. Movement pumps venom through the body faster.",
+      "Move the person away from the snake. Do NOT try to catch or kill the snake.",
+      "Lay the person down with the bitten limb BELOW the level of the heart if possible.",
+      "Remove any tight clothing, watches, rings, or jewellery near the bite — swelling will occur.",
+      "Loosely cover the bite with a clean bandage. Do NOT suck the venom or cut the wound.",
+      "Do NOT apply a tourniquet, electric shock, or ice to the bite.",
+      "Note the time of the bite and describe the snake to medical staff if possible (colour, size, pattern).",
+      "GET TO THE HOSPITAL IMMEDIATELY. Antivenom must be given by medical professionals."
+    ],
+    "warnings": [
+      "Never suck the venom — it does not help and can harm you.",
+      "Never cut the bite wound.",
+      "Never apply a tourniquet or tight bandage.",
+      "Never use traditional herbs or apply anything to the wound."
+    ],
+    "whenToGoToHospital": "ALL snake bites should be treated as emergencies. Go to the hospital IMMEDIATELY even if you are unsure if the snake was venomous."
+  },
+  {
+    "id": "drowning",
+    "title": "Drowning",
+    "emoji": "🌊",
+    "color": "#0284C7",
+    "severity": "critical",
+    "subtitle": "Near-drowning, water rescue",
+    "steps": [
+      "Call for help immediately. Do NOT enter deep water yourself unless you are a trained swimmer/rescuer.",
+      "If safe to do so, throw a rope, life ring, or any floating object to the person. Pull them to safety.",
+      "Once the person is out of the water, check if they are breathing. Tilt their head back and look for chest rise.",
+      "If they are NOT breathing: Start rescue breathing — give 5 initial rescue breaths. Pinch the nose, seal your mouth over theirs, and breathe into them until you see the chest rise.",
+      "If there is still no normal breathing: Begin CPR. Push down hard and fast on the centre of the chest (100–120 times per minute), alternating with rescue breaths if trained.",
+      "Keep the person warm — wet clothing causes rapid heat loss. Remove wet clothes if possible and cover with a dry blanket.",
+      "Even if the person seems recovered, take them to the hospital — delayed lung complications can occur hours later."
+    ],
+    "warnings": [
+      "Do not leave the person alone, even if they seem fine initially.",
+      "Do not waste time trying to drain water from the lungs — start CPR first.",
+      "Secondary drowning can happen hours later — always seek medical evaluation."
+    ],
+    "whenToGoToHospital": "ALL near-drowning cases must go to the hospital, even if the person appears to have recovered."
+  },
+  {
+    "id": "seizure",
+    "title": "Seizures / Convulsions",
+    "emoji": "⚡",
+    "color": "#7C3AED",
+    "severity": "critical",
+    "subtitle": "Epilepsy, febrile seizures",
+    "steps": [
+      "Stay calm. Time the seizure — if it lasts more than 5 minutes, call for emergency help immediately.",
+      "Clear the area around the person — remove hard or sharp objects they could hit.",
+      "Do NOT hold the person down or restrain their movements.",
+      "Do NOT put anything in their mouth — they CANNOT swallow their tongue. Putting something in the mouth can break their teeth or your fingers.",
+      "Gently turn the person on their side (recovery position) to prevent choking on saliva or vomit.",
+      "Cushion their head with something soft — a folded jacket or blanket.",
+      "After the seizure stops, keep them on their side, speak calmly, and stay with them until they are fully conscious.",
+      "The person may be confused and tired after — this is normal. Let them rest."
+    ],
+    "warnings": [
+      "Never put anything in the person's mouth during a seizure.",
+      "Never restrain or hold them down forcefully.",
+      "Do not give water until they are fully conscious."
+    ],
+    "whenToGoToHospital": "Seizure lasts more than 5 minutes, the person does not regain consciousness, this is their first seizure, they are pregnant, or they are injured during the seizure."
+  },
+  {
+    "id": "fainting",
+    "title": "Fainting / Unconscious",
+    "emoji": "😵",
+    "color": "#6366F1",
+    "severity": "urgent",
+    "subtitle": "Sudden loss of consciousness",
+    "steps": [
+      "Do NOT leave the person alone. If they are falling, try to support them gently to prevent injury from hitting the ground.",
+      "Lay them on their back on a flat surface. Loosen any tight clothing around the neck, chest, or waist.",
+      "Raise their legs above the level of their heart (about 30cm / 12 inches off the ground) to help blood return to the brain.",
+      "If they do NOT regain consciousness within 1–2 minutes, place them in the recovery position (on their side).",
+      "Check for breathing. If they are not breathing normally, begin CPR.",
+      "Check for any obvious cause: low blood sugar, heat, dehydration, injury, allergic reaction.",
+      "When they regain consciousness, let them lie still for a few minutes. Then help them sit up slowly — moving too fast can cause fainting again.",
+      "Offer water or something sweet (like juice) if they are fully conscious and can swallow safely."
+    ],
+    "warnings": [
+      "Do not give food or drink to an unconscious person.",
+      "Do not slap the person to wake them.",
+      "Do not leave them alone until they are fully recovered."
+    ],
+    "whenToGoToHospital": "Does not regain consciousness within 2 minutes, has difficulty breathing, was injured in the fall, has chest pain, or has a history of heart problems."
+  },
+  {
+    "id": "fracture",
+    "title": "Fractures / Sprains",
+    "emoji": "🦴",
+    "color": "#D97706",
+    "severity": "urgent",
+    "subtitle": "Broken bones, twisted joints",
+    "steps": [
+      "Do NOT try to straighten a broken bone — you can cause more damage and intense pain.",
+      "Immobilise the injured area in the position you find it. Support the area above AND below the injury.",
+      "Improvise a splint using a rigid item (stick, rolled newspaper, board) padded with cloth. Secure it gently — not too tight.",
+      "If there is an open wound (bone visible or skin broken), cover it loosely with a clean cloth. Do NOT push the bone back in.",
+      "Apply a cold pack or ice wrapped in cloth to help reduce swelling and pain. Never place ice directly on skin.",
+      "Elevate the injured limb if possible to reduce swelling.",
+      "For suspected spinal injury: Do NOT move the person. Keep their head, neck, and spine as still as possible. Call for help.",
+      "Get to the hospital for X-ray and proper treatment."
+    ],
+    "warnings": [
+      "Never try to realign or push a broken bone back.",
+      "Never move someone with a suspected neck or spine injury.",
+      "Do not apply heat in the first 48 hours."
+    ],
+    "whenToGoToHospital": "All suspected fractures need medical evaluation and X-ray. Go immediately if there is an open wound, loss of feeling, suspected spinal injury, or severe deformity."
+  },
+  {
+    "id": "electric-shock",
+    "title": "Electric Shock",
+    "emoji": "⚡",
+    "color": "#F59E0B",
+    "severity": "critical",
+    "subtitle": "Electrical injury, lightning strike",
+    "steps": [
+      "DO NOT touch the person while they are still in contact with the electrical source — you will be shocked too.",
+      "Turn off the power at the switch, mains box, or circuit breaker IMMEDIATELY. If you cannot turn off the power, use a dry wooden broom handle or plastic chair to push the source away — never use anything metal or wet.",
+      "Once they are free from the source and it is SAFE, check for response. Call for emergency help.",
+      "If unconscious and not breathing normally, begin CPR immediately.",
+      "If conscious, lay them down, check for burns — entry and exit wounds may appear as small marks.",
+      "Cover any burn areas with a clean cloth. Do NOT apply water, creams, or any substances.",
+      "Keep the person warm and prevent shock (lay them flat, elevate legs if no spinal injury suspected).",
+      "GO TO THE HOSPITAL — internal injuries from electrical shock can be serious even when external injuries appear minor."
+    ],
+    "warnings": [
+      "Never touch the person if they are still connected to the power source.",
+      "Never use metal objects to disconnect the source.",
+      "Never assume internal injuries are absent just because external burns look small."
+    ],
+    "whenToGoToHospital": "ALL electrical shock cases must go to the hospital, regardless of how the person feels. Internal cardiac and organ damage can be delayed."
+  },
+  {
+    "id": "poisoning",
+    "title": "Poisoning / Food Poisoning",
+    "emoji": "☠️",
+    "color": "#16A34A",
+    "severity": "critical",
+    "subtitle": "Ingested substances, food poisoning",
+    "steps": [
+      "Identify what was swallowed and when. Keep the container or packaging if available to show medical staff.",
+      "Do NOT induce vomiting unless specifically instructed by a medical professional or poison control — vomiting some chemicals can cause more damage.",
+      "If the person is conscious and alert, give water or milk to dilute the poison ONLY if instructed.",
+      "For food poisoning: let the person rest. If they can keep fluids down, encourage oral rehydration (ORS, or a mix of water + salt + sugar). Monitor for signs of dehydration.",
+      "Watch for danger signs: difficulty breathing, seizures, severe abdominal pain, loss of consciousness, or blood in vomit.",
+      "If the poison got onto the skin or eyes: rinse immediately with large amounts of cool running water for at least 15–20 minutes.",
+      "If inhaled chemicals cause difficulty breathing: move the person to fresh air immediately.",
+      "Seek medical attention for all intentional poisoning, unknown substances, or worsening symptoms."
+    ],
+    "warnings": [
+      "Never induce vomiting without medical advice — especially for acid, alkali, or petroleum products.",
+      "Never give anything by mouth if the person is unconscious.",
+      "Bring the poison container to the hospital."
+    ],
+    "whenToGoToHospital": "All suspected poisonings with unknown substances, any poisoning in a child, or when symptoms include difficulty breathing, seizures, unconsciousness, or chest pain."
+  },
+  {
+    "id": "allergic-reaction",
+    "title": "Allergic Reaction",
+    "emoji": "🤧",
+    "color": "#EC4899",
+    "severity": "critical",
+    "subtitle": "Anaphylaxis, severe allergy",
+    "steps": [
+      "Identify and REMOVE the trigger (food, insect sting, medication) if still present and safe to do so.",
+      "Watch for signs of SEVERE reaction (anaphylaxis): difficulty breathing, swelling of the face/throat/tongue, severe hives, dizziness, or collapse.",
+      "If they have a prescribed EpiPen (adrenaline auto injector), administer it immediately into the outer thigh — even through clothing. Call for emergency help.",
+      "If no EpiPen is available and there are severe symptoms: lay them down with legs raised (unless having difficulty breathing — then sit them upright), call for emergency help immediately.",
+      "If the reaction is mild (skin hives, itching, runny nose): an antihistamine (like chlorphenamine) may help — follow package dosing instructions.",
+      "Keep the person calm and still. Stress worsens anaphylaxis.",
+      "Even after using an EpiPen and symptoms improve, go to the hospital — symptoms can return within hours.",
+      "Note exactly what the person was exposed to; tell the medical staff."
+    ],
+    "warnings": [
+      "Anaphylaxis is life-threatening. Do not wait to see if it gets better — act fast.",
+      "Do not give anything by mouth if the person has throat swelling or difficulty swallowing.",
+      "The effect of an EpiPen is temporary — hospital treatment is still needed."
+    ],
+    "whenToGoToHospital": "Any allergic reaction with breathing difficulty, throat swelling, collapse, or loss of consciousness is a medical emergency. Go IMMEDIATELY."
+  },
+  {
+    "id": "fever-child",
+    "title": "Fever in Children",
+    "emoji": "🌡️",
+    "color": "#F97316",
+    "severity": "urgent",
+    "subtitle": "High temperature, febrile seizures",
+    "steps": [
+      "Check the child's temperature. A fever is generally a temperature above 38°C (100.4°F). Use a thermometer if available.",
+      "Keep the child lightly dressed — remove heavy clothing. Do not wrap them in thick blankets.",
+      "Give the child paracetamol (Panadol/acetaminophen) at the correct dose for their weight and age. Check the label carefully.",
+      "Encourage the child to drink plenty of fluids — water, breastmilk, oral rehydration solution.",
+      "Sponge the child with lukewarm (not cold) water if they are very uncomfortable. Focus on their forearms, armpits, forehead, and neck.",
+      "Keep the room cool and well-ventilated.",
+      "Monitor closely for warning signs: difficulty breathing, rash, stiff neck, persistent vomiting, non-stop crying, or seizures.",
+      "If the child has a febrile seizure: keep them safe (see Seizures guide), lay them on their side, and go to the hospital after it stops."
+    ],
+    "warnings": [
+      "Never use aspirin for children under 16 — it can cause a serious condition called Reye's syndrome.",
+      "Never use ice-cold water for sponging — it can cause shivering which raises the temperature.",
+      "Never leave a feverish child unattended."
+    ],
+    "whenToGoToHospital": "Child under 3 months with any fever, temperature above 39.5°C, fever lasting more than 3 days, child is unusually drowsy or difficult to wake, has a seizure, rash, stiff neck, or difficulty breathing."
+  },
+  {
+    "id": "nosebleed",
+    "title": "Nosebleeds",
+    "emoji": "🩺",
+    "color": "#EF4444",
+    "severity": "informational",
+    "subtitle": "Nasal haemorrhage",
+    "steps": [
+      "Have the person sit upright and lean FORWARD slightly — not backward. Leaning back causes blood to flow down the throat.",
+      "Pinch the SOFT part of the nose (below the hard bony bridge) firmly between the index finger and thumb.",
+      "Breathe through the mouth. Hold continuous firm pressure for 10–15 minutes without releasing to check.",
+      "Apply a cold compress or ice pack (wrapped in cloth) to the bridge of the nose and back of the neck to help constrict blood vessels.",
+      "After the bleeding stops, advise the person NOT to blow their nose, sniff, or pick their nose for at least a few hours.",
+      "Avoid bending over or physical activity for the rest of the day."
+    ],
+    "warnings": [
+      "Never have the person tilt their head back — this causes blood to be swallowed.",
+      "Do not pack the nose with cotton wool or cloth and leave it in.",
+      "If the blood is very heavy or spurting, go to the hospital."
+    ],
+    "whenToGoToHospital": "Heavy bleeding that doesn't stop after 20 minutes of firm pressure, result of a head injury, the person takes blood thinners, or the person becomes pale, dizzy, or faint."
+  }
+]

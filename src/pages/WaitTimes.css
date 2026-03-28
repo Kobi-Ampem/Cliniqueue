@@ -1,0 +1,194 @@
+.waittimes-wrapper { padding-bottom: 3rem; }
+
+.page-header {
+  padding: 2.5rem 0 2rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5rem;
+  background: linear-gradient(180deg, rgba(245, 158, 11, 0.05) 0%, transparent 100%);
+}
+
+.page-header-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.page-header-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.page-header h1 { font-size: 1.875rem; margin-bottom: 0.25rem; }
+.page-header p { font-size: 0.9rem; color: var(--text-secondary); margin: 0; max-width: 500px; }
+
+/* Report Form */
+.report-form-wrapper {
+  background: var(--gradient-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  margin-bottom: 1rem;
+}
+
+.report-form h4 {
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-accent-light);
+}
+
+.report-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.wait-slider {
+  width: 100%;
+  accent-color: var(--color-accent);
+  margin-top: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.slider-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.slider-value {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+/* Layout */
+.waittimes-layout {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+/* Facility Cards */
+.facilities-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.facility-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+}
+
+.facility-card:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
+
+.facility-card.active {
+  border-color: var(--color-accent);
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: 0 0 0 1px var(--color-accent);
+}
+
+.facility-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.facility-icon { font-size: 1.8rem; }
+.facility-info { flex: 1; }
+.facility-name { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.1rem; }
+.facility-type { font-size: 0.825rem; color: var(--text-secondary); }
+.facility-chevron { color: var(--text-muted); transition: transform 0.2s; }
+.facility-chevron.open { transform: rotate(180deg); }
+
+/* Card Stats */
+.facility-stats {
+  display: flex;
+  align-items: center;
+  background: var(--bg-surface);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+}
+
+.fstat { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
+.fstat-value { font-size: 1.1rem; font-weight: 700; font-family: var(--font-heading); color: var(--text-primary); }
+.fstat-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+.fstat-divider { width: 1px; height: 24px; background: var(--border); }
+
+/* Service Breakdown */
+.services-breakdown {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.breakdown-title { font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.25rem; }
+
+.service-row { display: grid; grid-template-columns: 2fr 3fr 1fr; gap: 1rem; align-items: center; }
+
+.service-row-info { display: flex; flex-direction: column; }
+.service-row-name { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+.service-row-sub { font-size: 0.72rem; color: var(--text-muted); }
+
+.service-row-stats { display: flex; align-items: center; gap: 0.75rem; }
+.wait-bar-wrapper { flex: 1; height: 6px; background: var(--bg-surface-hover); border-radius: 3px; overflow: hidden; }
+.wait-bar { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+.service-wait-time { font-size: 0.85rem; font-weight: 700; width: 60px; text-align: right; }
+
+.service-row-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 0.25rem; }
+.service-badge { font-size: 0.7rem; font-weight: 600; padding: 0.15rem 0.4rem; background: var(--bg-surface); border-radius: 4px; }
+.report-count { font-size: 0.7rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.2rem; }
+
+/* Sidebar */
+.waittimes-sidebar { display: flex; flex-direction: column; gap: 1.25rem; position: sticky; top: 82px; }
+
+.wait-tips-card { background: linear-gradient(145deg, rgba(37,99,235,0.05), rgba(16,185,129,0.05)); border: 1px solid rgba(37,99,235,0.2); border-radius: var(--radius-xl); padding: 1.5rem; }
+.wait-tips-card h3 { font-size: 1rem; color: var(--color-primary-light); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+.wait-tips-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+.wait-tips-list li { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.5; padding-left: 1.25rem; position: relative; }
+.wait-tips-list li::before { content: '•'; position: absolute; left: 0; color: var(--color-primary); font-weight: bold; }
+
+.legend-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 1.25rem; }
+.legend-card h4 { font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 0.75rem; }
+.legend-items { display: flex; flex-direction: column; gap: 0.5rem; }
+.legend-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--text-primary); }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+@media (max-width: 900px) {
+  .waittimes-layout { grid-template-columns: 1fr; }
+  .waittimes-sidebar { position: static; display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .report-form-grid { grid-template-columns: 1fr; }
+  .service-row { grid-template-columns: 1fr; gap: 0.5rem; padding: 0.5rem 0; border-bottom: 1px dashed var(--border); }
+  .service-row-meta { align-items: flex-start; flex-direction: row; gap: 1rem; }
+}
+
+@media (max-width: 640px) {
+  .waittimes-sidebar { grid-template-columns: 1fr; }
+  .page-header-inner { flex-direction: column; }
+}
