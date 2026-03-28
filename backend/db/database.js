@@ -11,6 +11,23 @@ const db = new Database(dbFile)
 db.pragma('journal_mode = WAL')
 db.pragma('foreign_keys = ON')
 
+// Translation cache is created immediately so prepared statements in translate.js work at import time
+db.exec(`
+  CREATE TABLE IF NOT EXISTS translation_cache (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    sourceLang TEXT NOT NULL DEFAULT 'en',
+    targetLang TEXT NOT NULL,
+    sourceText TEXT NOT NULL,
+    translatedText TEXT NOT NULL,
+    createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+  )
+`)
+
+db.exec(`
+  CREATE UNIQUE INDEX IF NOT EXISTS idx_translation_lookup
+  ON translation_cache (sourceLang, targetLang, sourceText)
+`)
+
 export function initDB() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS wait_reports (

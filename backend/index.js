@@ -37,6 +37,7 @@ app.get('/api/health', (req, res) => {
       'GET  /api/wait-times',
       'POST /api/wait-times',
       'GET  /api/translate/languages',
+      'GET  /api/translate/cache-stats',
       'POST /api/translate',
       'POST /api/translate/batch',
       'GET  /api/journal',

@@ -1,6 +1,7 @@
 import express from 'express'
 import axios from 'axios'
 import dotenv from 'dotenv'
+import db from '../db/database.js'
 
 dotenv.config()
 
@@ -26,20 +27,51 @@ const SUPPORTED_LANGUAGES = [
 
 const VALID_LANG_CODES = new Set(SUPPORTED_LANGUAGES.map(l => l.code))
 
-// Server-side translation cache
-const cache = new Map()
-const MAX_CACHE_SIZE = 1000
+// --- Two-tier cache: fast in-memory Map + persistent SQLite ---
 
-function getCacheKey(text, sourceLang, targetLang) {
+const memCache = new Map()
+const MAX_MEM_CACHE = 2000
+
+const dbGet = db.prepare(
+  'SELECT translatedText FROM translation_cache WHERE sourceLang = ? AND targetLang = ? AND sourceText = ?'
+)
+const dbInsert = db.prepare(
+  'INSERT OR REPLACE INTO translation_cache (sourceLang, targetLang, sourceText, translatedText) VALUES (?, ?, ?, ?)'
+)
+
+function getCacheKey(sourceLang, targetLang, text) {
   return `${sourceLang}-${targetLang}:${text}`
 }
 
-function addToCache(key, value) {
-  if (cache.size >= MAX_CACHE_SIZE) {
-    const firstKey = cache.keys().next().value
-    cache.delete(firstKey)
+function getFromCache(sourceLang, targetLang, text) {
+  const memKey = getCacheKey(sourceLang, targetLang, text)
+  if (memCache.has(memKey)) return memCache.get(memKey)
+
+  const row = dbGet.get(sourceLang, targetLang, text)
+  if (row) {
+    if (memCache.size >= MAX_MEM_CACHE) {
+      const firstKey = memCache.keys().next().value
+      memCache.delete(firstKey)
+    }
+    memCache.set(memKey, row.translatedText)
+    return row.translatedText
   }
-  cache.set(key, value)
+  return null
+}
+
+function saveToCache(sourceLang, targetLang, text, translatedText) {
+  const memKey = getCacheKey(sourceLang, targetLang, text)
+  if (memCache.size >= MAX_MEM_CACHE) {
+    const firstKey = memCache.keys().next().value
+    memCache.delete(firstKey)
+  }
+  memCache.set(memKey, translatedText)
+
+  try {
+    dbInsert.run(sourceLang, targetLang, text, translatedText)
+  } catch (err) {
+    console.error('Cache write error:', err.message)
+  }
 }
 
 function mockTranslate(text, targetLang) {
@@ -49,23 +81,19 @@ function mockTranslate(text, targetLang) {
 async function translateText(text, sourceLang = 'en', targetLang) {
   if (!text || sourceLang === targetLang) return text
 
-  const cacheKey = getCacheKey(text, sourceLang, targetLang)
-  if (cache.has(cacheKey)) {
-    return cache.get(cacheKey)
-  }
+  const cached = getFromCache(sourceLang, targetLang, text)
+  if (cached) return cached
 
   if (!API_KEY) {
     const mocked = mockTranslate(text, targetLang)
-    addToCache(cacheKey, mocked)
+    saveToCache(sourceLang, targetLang, text, mocked)
     return mocked
   }
 
   try {
-    const langPair = `${sourceLang}-${targetLang}`
-
     const response = await axios.post(
       KHAYA_API_URL,
-      { in: text, lang: langPair },
+      { in: text, lang: `${sourceLang}-${targetLang}` },
       {
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +115,7 @@ async function translateText(text, sourceLang = 'en', targetLang) {
       translated = JSON.stringify(response.data)
     }
 
-    addToCache(cacheKey, translated)
+    saveToCache(sourceLang, targetLang, text, translated)
     return translated
   } catch (error) {
     const status = error.response?.status
@@ -105,7 +133,7 @@ async function translateText(text, sourceLang = 'en', targetLang) {
   }
 }
 
-// GET /api/translate/languages — list supported languages
+// GET /api/translate/languages
 router.get('/languages', (req, res) => {
   res.json({
     languages: SUPPORTED_LANGUAGES,
@@ -113,7 +141,20 @@ router.get('/languages', (req, res) => {
   })
 })
 
-// POST /api/translate — single text translation
+// GET /api/translate/cache-stats
+router.get('/cache-stats', (req, res) => {
+  const total = db.prepare('SELECT COUNT(*) as count FROM translation_cache').get()
+  const byLang = db.prepare(
+    'SELECT targetLang, COUNT(*) as count FROM translation_cache GROUP BY targetLang ORDER BY count DESC'
+  ).all()
+  res.json({
+    memoryCache: memCache.size,
+    persistentCache: total.count,
+    byLanguage: byLang,
+  })
+})
+
+// POST /api/translate
 router.post('/', async (req, res) => {
   const { text, targetLang, sourceLang = 'en' } = req.body
 
@@ -130,20 +171,14 @@ router.post('/', async (req, res) => {
 
   try {
     const translatedText = await translateText(text, sourceLang, targetLang)
-    res.json({
-      translatedText,
-      sourceLang,
-      targetLang,
-      cached: cache.has(getCacheKey(text, sourceLang, targetLang)),
-      apiConfigured: !!API_KEY,
-    })
+    res.json({ translatedText, sourceLang, targetLang, apiConfigured: !!API_KEY })
   } catch (err) {
     console.error('Translate error:', err)
     res.json({ translatedText: mockTranslate(text, targetLang), error: 'Translation failed' })
   }
 })
 
-// POST /api/translate/batch — translate multiple texts at once
+// POST /api/translate/batch
 router.post('/batch', async (req, res) => {
   const { texts, targetLang, sourceLang = 'en' } = req.body
 
