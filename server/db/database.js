@@ -6,10 +6,11 @@ import fs from 'fs'
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const dbFile = path.resolve(__dirname, 'clinicplus.db')
 
-// Create DB connection
 const db = new Database(dbFile)
 
-// Initialise DB schema
+db.pragma('journal_mode = WAL')
+db.pragma('foreign_keys = ON')
+
 export function initDB() {
   db.exec(`
     CREATE TABLE IF NOT EXISTS wait_reports (
@@ -22,14 +23,28 @@ export function initDB() {
     )
   `)
 
-  // Check if we need to seed the db by looking at how many records we have
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS journal_entries (
+      id TEXT PRIMARY KEY,
+      date TEXT NOT NULL,
+      facility TEXT NOT NULL,
+      service TEXT NOT NULL,
+      doctor TEXT DEFAULT '',
+      diagnosis TEXT DEFAULT '',
+      prescriptions TEXT DEFAULT '',
+      nextDate TEXT DEFAULT '',
+      notes TEXT DEFAULT '',
+      createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updatedAt DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `)
+
   const stmt = db.prepare('SELECT COUNT(*) as count FROM wait_reports')
   const result = stmt.get()
 
   if (result.count === 0) {
-    console.log('🌱 Seeding initial wait time data...')
-    
-    // Read the facility seed file from frontend data
+    console.log('Seeding initial wait time data...')
+
     const facilitiesPath = path.resolve(__dirname, '../../src/data/facilities.json')
     if (fs.existsSync(facilitiesPath)) {
       const facilities = JSON.parse(fs.readFileSync(facilitiesPath, 'utf8'))
@@ -41,7 +56,6 @@ export function initDB() {
       const insertMany = db.transaction((facilities) => {
         for (const f of facilities) {
           for (const s of f.services) {
-            // Seed a few records to build the average
             insert.run(f.id, s.name, s.avgWaitMinutes + 10, 'morning')
             insert.run(f.id, s.name, Math.max(5, s.avgWaitMinutes - 15), 'afternoon')
             insert.run(f.id, s.name, s.avgWaitMinutes, 'morning')
@@ -49,7 +63,7 @@ export function initDB() {
         }
       })
       insertMany(facilities)
-      console.log('✅ Seeding complete')
+      console.log('Seeding complete')
     }
   }
 }

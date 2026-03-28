@@ -27,9 +27,9 @@ dist-ssr
 *.db
 *.sqlite
 *.sqlite3
-server/clinicplus.db
-server/clinicplus.db-wal
-server/clinicplus.db-shm
+server/db/clinicplus.db
+server/db/clinicplus.db-wal
+server/db/clinicplus.db-shm
 
 # Environment variables
 .env
