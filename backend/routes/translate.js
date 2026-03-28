@@ -141,6 +141,29 @@ async function translateText(text, sourceLang = 'en', targetLang) {
   }
 }
 
+// Khaya-compatible proxy: accepts { in, lang } just like the real Khaya API
+// so the frontend can use this instead of calling Khaya directly (avoids CORS)
+router.post('/proxy', async (req, res) => {
+  const { in: text, lang } = req.body
+
+  if (!text || !lang) {
+    return res.status(400).json({ error: 'Missing "in" or "lang"' })
+  }
+
+  const [sourceLang, targetLang] = lang.split('-')
+  if (!sourceLang || !targetLang) {
+    return res.status(400).json({ error: 'lang must be "source-target" format, e.g. "en-tw"' })
+  }
+
+  try {
+    const translated = await translateText(text, sourceLang, targetLang)
+    res.json({ translatedText: translated })
+  } catch (err) {
+    console.error('Proxy translate error:', err)
+    res.status(500).json({ error: 'Translation failed' })
+  }
+})
+
 router.get('/languages', (req, res) => {
   res.json({
     languages: SUPPORTED_LANGUAGES,
