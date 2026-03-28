@@ -1,0 +1,172 @@
+[
+  {
+    "id": "burns",
+    "title": "Burns (fire, hot water, chemical)",
+    "steps": [
+      "Move the person away from the heat or chemical source. Ensure your own safety first.",
+      "For thermal burns, cool the area under clean running water for at least 10 minutes. Do not use ice.",
+      "Remove tight items near the burn (rings, watches) before swelling starts, unless stuck to skin.",
+      "Do not apply toothpaste, butter, shea butter, or raw egg — they trap heat and can cause infection.",
+      "Cover loosely with a clean, non-fluffy cloth or sterile dressing.",
+      "For chemical burns, brush off dry powder first, then rinse with lots of water. Remove contaminated clothing.",
+      "If the burn is larger than the person’s palm, on the face/hands/genitals, deep, or caused by chemicals or electricity, go to the hospital immediately.",
+      "If the person is in severe pain, weak, or having trouble breathing, seek emergency care."
+    ]
+  },
+  {
+    "id": "choking",
+    "title": "Choking (adult and child)",
+    "steps": [
+      "Encourage coughing if the person can cough, speak, or breathe — stay with them.",
+      "If they cannot breathe, speak, or cough effectively, call for help and start first aid.",
+      "For adults and children over 1 year: stand behind them, place a fist above the belly button, grasp with your other hand, give up to 5 sharp inward-upward thrusts (Heimlich).",
+      "If still blocked, give up to 5 firm back blows between the shoulder blades, then repeat thrusts.",
+      "For infants under 1 year: give 5 back blows while supporting the head, then 5 chest thrusts with two fingers on the breastbone — repeat if needed.",
+      "If the person becomes unresponsive, begin CPR if you are trained and help them breathe when possible.",
+      "Even if the object clears, seek medical care if breathing was difficult or there is throat pain."
+    ]
+  },
+  {
+    "id": "bleeding",
+    "title": "Bleeding / open wounds",
+    "steps": [
+      "Wash your hands if possible or use gloves. Protect yourself from blood.",
+      "Apply firm, direct pressure on the wound with a clean cloth or gauze. Keep pressure steady.",
+      "Raise the injured part above heart level if it does not cause more pain or obvious fracture.",
+      "Do not remove material deeply stuck in the wound — pad around it and press.",
+      "Once bleeding slows, bandage snugly but not so tight that fingers or toes turn blue or numb.",
+      "Seek urgent care if bleeding does not stop in 10 minutes, spurts, the person feels faint, or the wound is deep, gaping, or caused by a dirty object.",
+      "Animal bites and deep dirty wounds may need tetanus update and medical cleaning — go to a facility."
+    ]
+  },
+  {
+    "id": "snake-bite",
+    "title": "Snake bites",
+    "steps": [
+      "Keep the person calm and still. Panic speeds venom spread.",
+      "Call for emergency transport or go to the nearest hospital that stocks antivenom if available.",
+      "Remove tight jewellery or clothing near the bite before swelling.",
+      "Keep the bitten limb at or slightly below heart level. Do not let them run or walk long distances.",
+      "Do not cut, suck, apply a tourniquet, ice, or herbal pastes — these worsen tissue damage.",
+      "Note snake colour/pattern only if safe — a photo helps doctors, but do not delay leaving dangerous ground.",
+      "Monitor breathing and consciousness while travelling to care."
+    ]
+  },
+  {
+    "id": "drowning",
+    "title": "Drowning (rescue and first response)",
+    "steps": [
+      "Shout for help. Only enter the water if you can do so safely — use a rope, pole, or flotation device if possible.",
+      "Get the person out of the water as quickly and safely as you can.",
+      "Check responsiveness and breathing. If unresponsive but breathing, place in recovery position and monitor.",
+      "If not breathing normally, call for help and start rescue breaths and chest compressions if you are trained (CPR).",
+      "Even if they seem fine after coughing up water, they still need medical assessment — “dry drowning” complications can appear later.",
+      "Keep the person warm with dry clothes or blankets after rescue.",
+      "All drowning survivors should be evaluated at a hospital."
+    ]
+  },
+  {
+    "id": "seizures",
+    "title": "Seizures / convulsions",
+    "steps": [
+      "Stay calm. Note the time the seizure started.",
+      "Ease the person to the floor. Clear nearby sharp or hard objects.",
+      "Place something soft under the head. Loosen tight clothing around the neck.",
+      "Do not put anything in the mouth — they cannot swallow their tongue.",
+      "Do not restrain their movements. Turn them onto one side after jerking stops if breathing is OK.",
+      "Call emergency services if the seizure lasts more than 5 minutes, repeats without full recovery, happens in pregnancy, or if it is their first seizure.",
+      "Afterwards, stay with them. Speak calmly. They may be confused — help them rest in a safe place."
+    ]
+  },
+  {
+    "id": "fainting",
+    "title": "Fainting / unconsciousness",
+    "steps": [
+      "If they feel faint, have them sit or lie down and raise their legs above heart level if possible.",
+      "If unconscious, check responsiveness and breathing. Call for help.",
+      "If breathing normally, place in recovery position (on side, hand under cheek, leg bent).",
+      "If not breathing normally, begin CPR if trained.",
+      "Loosen tight belts or collars. Protect the airway. Do not give food or drink until fully alert.",
+      "If they do not wake within a minute, have unusual breathing, chest pain, head injury, or are pregnant, seek emergency care.",
+      "When awake, have them sit up slowly and sip water if dehydration might be the cause."
+    ]
+  },
+  {
+    "id": "fractures-sprains",
+    "title": "Bone fractures / sprains",
+    "steps": [
+      "Keep the injured area still. Do not force a bent limb straight.",
+      "Apply ice wrapped in cloth for up to 15 minutes to reduce swelling (if skin is intact).",
+      "For suspected fracture, splint in the position found using boards, rolled newspaper, or a sling — immobilize joints above and below.",
+      "Treat open fractures: cover wound with clean dressing, do not push bone back, control bleeding with pressure.",
+      "Elevate the limb if it does not worsen pain. Watch fingers/toes for colour and feeling.",
+      "Go to the hospital for X-rays. Do not eat or drink if surgery might be needed — follow local advice.",
+      "For ankle/knee sprains: rest, ice, compression bandage, and elevation; seek care if they cannot bear weight or bone looks deformed."
+    ]
+  },
+  {
+    "id": "electric-shock",
+    "title": "Electric shock",
+    "steps": [
+      "Do not touch the person if they are still in contact with the electrical source — you may be shocked too.",
+      "Turn off the power at the mains, unplug, or use a dry non-conductive object (wood, plastic) to separate them from the source.",
+      "Call emergency services. High-voltage lines: stay far away and call the power company.",
+      "Once safe to touch, check breathing and pulse. Start CPR if needed and you are trained.",
+      "Cool any burns with running water after the person is disconnected from power.",
+      "All electric shock victims should be medically evaluated — internal injuries may not be visible.",
+      "Watch for chest pain, confusion, or irregular heartbeat on the way to care."
+    ]
+  },
+  {
+    "id": "poisoning",
+    "title": "Poisoning / food poisoning",
+    "steps": [
+      "Find out what was taken, how much, and when. Keep containers or labels for hospital staff.",
+      "If the person is drowsy, having seizures, or trouble breathing, call emergency services immediately.",
+      "Do not try to induce vomiting unless a health professional tells you to — some substances cause more damage coming back up.",
+      "For swallowed chemicals, follow container instructions if safe; when unsure, seek phone advice or go to hospital.",
+      "For mild food poisoning with vomiting/diarrhea: sip oral rehydration or clean boiled water; rest.",
+      "Seek urgent care for blood in vomit/stool, high fever, severe belly pain, signs of dehydration, or vulnerable people (babies, elderly, pregnant).",
+      "Bring a sample or photo of the suspected poison or meal."
+    ]
+  },
+  {
+    "id": "allergic-reaction",
+    "title": "Allergic reactions",
+    "steps": [
+      "Mild reaction (rash, itch, sneezing): help them sit, loosen tight clothing, and use any prescribed antihistamine they already have from a doctor.",
+      "Watch for swelling of lips/tongue, wheezing, hoarse voice, dizziness, or fainting — these are emergencies.",
+      "If they have prescribed adrenaline (epinephrine auto-injector), help them use it in the outer thigh and call emergency services.",
+      "Lay them flat with legs raised if faint, unless breathing is easier sitting upright.",
+      "Do not give food or drink if swallowing is difficult.",
+      "Stay with them until help arrives.",
+      "After any severe reaction, they must go to hospital for observation even if they feel better."
+    ]
+  },
+  {
+    "id": "fever-child",
+    "title": "Fever in children",
+    "steps": [
+      "Dress lightly. Offer frequent small drinks of water or oral rehydration. Do not bundle heavily.",
+      "If a doctor has advised paracetamol or ibuprofen for this child, give the correct dose for age/weight — never adult dosing.",
+      "Sponge with lukewarm water if uncomfortable; avoid cold baths or alcohol rubs.",
+      "Watch for danger signs: floppy or hard to wake, purple spots, stiff neck, non-stop crying, breathing difficulty, seizure, or not passing urine.",
+      "Babies under 3 months with any fever need prompt medical assessment.",
+      "Seek care if fever lasts more than 3 days, is very high, or the child refuses fluids.",
+      "Trust your instincts — if something feels very wrong, go to the hospital."
+    ]
+  },
+  {
+    "id": "nosebleed",
+    "title": "Nosebleeds",
+    "steps": [
+      "Sit upright and lean slightly forward — not backward (swallowing blood can upset the stomach).",
+      "Pinch the soft part of the nose (below the bridge) firmly for 10–15 minutes without letting go to check early.",
+      "Breathe through the mouth. Spit out blood instead of swallowing when possible.",
+      "Apply a cold cloth to the nose bridge or cheeks if helpful.",
+      "After bleeding stops, avoid blowing the nose, heavy lifting, or hot drinks for several hours.",
+      "Seek care if bleeding lasts more than 20 minutes, is very heavy, follows injury, or happens often.",
+      "If the person feels faint, help them lie down with legs raised and get medical help."
+    ]
+  }
+]

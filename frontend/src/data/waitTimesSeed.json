@@ -1,0 +1,65 @@
+{
+  "facilities": [
+    {
+      "id": "kath",
+      "name": "Komfo Anokye Teaching Hospital (KATH)",
+      "shortName": "KATH",
+      "busiestTimes": "Weekday mornings 8:00–11:00",
+      "bestTimeTip": "Arrive before 7:30am for a lower OPD queue number.",
+      "services": [
+        { "id": "opd", "label": "General OPD", "avgMinutes": 150, "reportCount": 28 },
+        { "id": "lab", "label": "Laboratory", "avgMinutes": 95, "reportCount": 18 },
+        { "id": "pharmacy", "label": "Pharmacy", "avgMinutes": 55, "reportCount": 22 },
+        { "id": "emergency", "label": "Emergency / A&E", "avgMinutes": 120, "reportCount": 14 }
+      ]
+    },
+    {
+      "id": "knust",
+      "name": "KNUST Hospital",
+      "shortName": "KNUST Hospital",
+      "busiestTimes": "Mid-morning on lecture days",
+      "bestTimeTip": "Early morning (7:00–8:00) tends to be shortest for OPD.",
+      "services": [
+        { "id": "opd", "label": "General OPD", "avgMinutes": 95, "reportCount": 16 },
+        { "id": "lab", "label": "Laboratory", "avgMinutes": 70, "reportCount": 12 },
+        { "id": "pharmacy", "label": "Pharmacy", "avgMinutes": 40, "reportCount": 15 }
+      ]
+    },
+    {
+      "id": "kumasi-south",
+      "name": "Kumasi South Hospital",
+      "shortName": "Kumasi South",
+      "busiestTimes": "Mondays and market days, 9am–12pm",
+      "bestTimeTip": "Tuesday–Thursday afternoons often slightly shorter waits for routine visits.",
+      "services": [
+        { "id": "opd", "label": "General OPD", "avgMinutes": 130, "reportCount": 20 },
+        { "id": "lab", "label": "Laboratory", "avgMinutes": 85, "reportCount": 14 },
+        { "id": "antenatal", "label": "Antenatal", "avgMinutes": 110, "reportCount": 19 }
+      ]
+    },
+    {
+      "id": "manhyia",
+      "name": "Manhyia District Hospital",
+      "shortName": "Manhyia",
+      "busiestTimes": "Morning OPD peak 8:30–11:00",
+      "bestTimeTip": "Child welfare clinics are busiest mid-morning; come at opening if possible.",
+      "services": [
+        { "id": "opd", "label": "General OPD", "avgMinutes": 115, "reportCount": 17 },
+        { "id": "cwc", "label": "Child welfare", "avgMinutes": 100, "reportCount": 24 },
+        { "id": "pharmacy", "label": "Pharmacy", "avgMinutes": 50, "reportCount": 16 }
+      ]
+    },
+    {
+      "id": "tafo",
+      "name": "Tafo Government Hospital",
+      "shortName": "Tafo Govt",
+      "busiestTimes": "Weekday mornings",
+      "bestTimeTip": "Arrive at 7:15–7:45 for records and vitals before the main rush.",
+      "services": [
+        { "id": "opd", "label": "General OPD", "avgMinutes": 105, "reportCount": 15 },
+        { "id": "lab", "label": "Laboratory", "avgMinutes": 75, "reportCount": 11 },
+        { "id": "pharmacy", "label": "Pharmacy", "avgMinutes": 45, "reportCount": 13 }
+      ]
+    }
+  ]
+}

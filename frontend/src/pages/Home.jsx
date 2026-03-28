@@ -1,188 +1,111 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Shield, Hospital, Clock, BookOpen, ArrowRight, ChevronRight } from 'lucide-react'
-import './Home.css'
+import { useLanguage } from '../hooks/useLanguage.js'
+import { NAV_ICONS } from '../components/navIcons.js'
 
-const features = [
-  {
-    to: '/first-aid',
-    id: 'home-first-aid-card',
-    icon: '🆘',
-    lucideIcon: Shield,
-    title: 'First Aid Guide',
-    tagline: 'Priority #1',
-    description: '13 emergencies. Step-by-step instructions. No jargon. Works in English, Twi, Ewe, and Ga.',
-    gradient: 'linear-gradient(135deg, rgba(239,68,68,0.15), rgba(220,38,38,0.05))',
-    border: 'rgba(239,68,68,0.3)',
-    accent: '#EF4444',
-    glow: 'rgba(239,68,68,0.2)',
-    badge: '⚡ Life-saving',
-  },
-  {
-    to: '/hospital-guide',
-    id: 'home-hospital-guide-card',
-    icon: '🏥',
-    lucideIcon: Hospital,
-    title: 'Hospital Guide',
-    tagline: 'Priority #2',
-    description: '12 services covered. Know exactly what documents to bring, the process, and what NHIS covers.',
-    gradient: 'linear-gradient(135deg, rgba(37,99,235,0.15), rgba(29,78,216,0.05))',
-    border: 'rgba(37,99,235,0.3)',
-    accent: '#2563EB',
-    glow: 'rgba(37,99,235,0.2)',
-    badge: '📋 Be prepared',
-  },
-  {
-    to: '/wait-times',
-    id: 'home-wait-times-card',
-    icon: '⏱️',
-    lucideIcon: Clock,
-    title: 'Wait Times',
-    tagline: 'Priority #3',
-    description: 'Crowdsourced wait times for 5 Kumasi hospitals. Know before you go. Report your own wait.',
-    gradient: 'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(217,119,6,0.05))',
-    border: 'rgba(245,158,11,0.3)',
-    accent: '#F59E0B',
-    glow: 'rgba(245,158,11,0.2)',
-    badge: '📊 Community data',
-  },
-  {
-    to: '/journal',
-    id: 'home-journal-card',
-    icon: '📒',
-    lucideIcon: BookOpen,
-    title: 'Visit Journal',
-    tagline: 'Priority #4',
-    description: 'Your personal health notebook. Log visits, prescriptions, and remember what the doctor said.',
-    gradient: 'linear-gradient(135deg, rgba(16,185,129,0.15), rgba(5,150,105,0.05))',
-    border: 'rgba(16,185,129,0.3)',
-    accent: '#10B981',
-    glow: 'rgba(16,185,129,0.2)',
-    badge: '📝 Your notebook',
-  },
-]
+const SOURCE = {
+  kicker: 'cliniKLAN',
+  headline: 'Your hospital visit, simplified — in any language.',
+  sub:
+    'First aid, visit prep, wait times, and your health notes — built for Ghana.',
+  cards: [
+    {
+      to: '/first-aid',
+      icon: 'firstAid',
+      title: 'First Aid',
+      body: 'Step-by-step help for burns, choking, bites, and more — no jargon.',
+    },
+    {
+      to: '/prepare',
+      icon: 'prepare',
+      title: 'Prepare for Visit',
+      body: 'Documents, NHIS tips, and what to expect before you leave home.',
+    },
+    {
+      to: '/wait-times',
+      icon: 'wait',
+      title: 'Wait Times',
+      body: 'Crowdsourced averages for major Kumasi facilities — plan your day.',
+    },
+    {
+      to: '/visits',
+      icon: 'visits',
+      title: 'My Visits',
+      body: 'A private notebook for what the doctor said — saved on this device.',
+    },
+  ],
+}
 
 export default function Home() {
+  const { lang, translateAll } = useLanguage()
+  const [intlCopy, setIntlCopy] = useState(null)
+
+  useEffect(() => {
+    if (lang === 'en') return
+    const ac = new AbortController()
+    ;(async () => {
+      try {
+        const flat = [
+          SOURCE.kicker,
+          SOURCE.headline,
+          SOURCE.sub,
+          ...SOURCE.cards.flatMap((c) => [c.title, c.body]),
+        ]
+        const t = await translateAll(flat, ac.signal)
+        if (ac.signal.aborted) return
+        let i = 0
+        const kicker = t[i++]
+        const headline = t[i++]
+        const sub = t[i++]
+        const cards = SOURCE.cards.map((c) => ({
+          ...c,
+          title: t[i++],
+          body: t[i++],
+        }))
+        setIntlCopy({ kicker, headline, sub, cards })
+      } catch (e) {
+        if (e.name !== 'AbortError') setIntlCopy(null)
+      }
+    })()
+    return () => ac.abort()
+  }, [lang, translateAll])
+
+  const copy = lang === 'en' ? SOURCE : intlCopy ?? SOURCE
+
   return (
-    <div className="home-wrapper">
-      {/* Hero */}
-      <section className="hero">
-        <div className="hero-bg-glow hero-bg-glow-1" />
-        <div className="hero-bg-glow hero-bg-glow-2" />
-        <div className="container">
-          <div className="hero-content animate-fade-up">
-            <div className="hero-badge">
-              <span>🇬🇭</span>
-              <span>Built for Ghana · Hackathon 2025</span>
-            </div>
-            <h1 className="hero-title">
-              Your hospital visit,
-              <span className="hero-title-accent"> simplified</span>
-              <br />— in any language.
-            </h1>
-            <p className="hero-subtitle">
-              ClinicPlus helps Ghanaians handle health emergencies, prepare for hospital visits,
-              understand wait times, and keep track of their health — in English, Twi, Ewe, and Ga.
-            </p>
-            <div className="hero-actions">
-              <Link to="/first-aid" id="hero-first-aid-btn" className="btn btn-primary">
-                <Shield size={18} />
-                Open First Aid Guide
-              </Link>
-              <Link to="/hospital-guide" id="hero-guide-btn" className="btn btn-secondary">
-                Prepare for Visit
-                <ChevronRight size={16} />
-              </Link>
-            </div>
-            <div className="hero-langs">
-              <span className="hero-lang-pill">🇬🇭 English</span>
-              <span className="hero-lang-pill">🌍 Twi</span>
-              <span className="hero-lang-pill">🌍 Ewe</span>
-              <span className="hero-lang-pill">🌍 Ga</span>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div className="space-y-6 text-left">
+      <div>
+        <p className="text-sm font-semibold uppercase tracking-wide text-brand-600">
+          {copy.kicker}
+        </p>
+        <h1 className="mt-1 text-2xl font-bold leading-tight text-stone-900 sm:text-3xl">
+          {copy.headline}
+        </h1>
+        <p className="mt-3 text-stone-600">{copy.sub}</p>
+      </div>
 
-      {/* Features Grid */}
-      <section className="features-section">
-        <div className="container">
-          <div className="section-label">Four features. One journey.</div>
-          <h2 className="features-title">Everything you need,<br />before, during & after.</h2>
-          <div className="features-grid animate-stagger">
-            {features.map(feature => (
+      <ul className="grid gap-3 sm:grid-cols-2">
+        {copy.cards.map((c) => {
+          const Icon = NAV_ICONS[c.icon]
+          return (
+            <li key={c.to}>
               <Link
-                key={feature.to}
-                to={feature.to}
-                id={feature.id}
-                className="feature-card"
-                style={{
-                  '--card-gradient': feature.gradient,
-                  '--card-border': feature.border,
-                  '--card-glow': feature.glow,
-                }}
+                to={c.to}
+                className="flex h-full flex-col rounded-2xl border border-stone-200 bg-white p-4 shadow-sm transition hover:border-brand-200 hover:shadow-md"
               >
-                <div className="feature-card-top">
-                  <div className="feature-emoji" aria-hidden="true">{feature.icon}</div>
-                  <span className="feature-badge">{feature.badge}</span>
-                </div>
-                <h3 className="feature-title">{feature.title}</h3>
-                <p className="feature-tagline" style={{ color: feature.accent }}>{feature.tagline}</p>
-                <p className="feature-desc">{feature.description}</p>
-                <div className="feature-cta">
-                  <span>Get started</span>
-                  <ArrowRight size={16} />
-                </div>
+                <Icon className="h-8 w-8 text-brand-600" />
+                <span className="mt-2 font-semibold text-stone-900">{c.title}</span>
+                <span className="mt-1 text-sm text-stone-600">{c.body}</span>
               </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+            </li>
+          )
+        })}
+      </ul>
 
-      {/* Stats bar */}
-      <section className="stats-section">
-        <div className="container">
-          <div className="stats-grid">
-            <div className="stat-item">
-              <span className="stat-number">13</span>
-              <span className="stat-label">First Aid Emergencies</span>
-            </div>
-            <div className="stat-divider" />
-            <div className="stat-item">
-              <span className="stat-number">12</span>
-              <span className="stat-label">Hospital Services Covered</span>
-            </div>
-            <div className="stat-divider" />
-            <div className="stat-item">
-              <span className="stat-number">5</span>
-              <span className="stat-label">Kumasi Hospitals Tracked</span>
-            </div>
-            <div className="stat-divider" />
-            <div className="stat-item">
-              <span className="stat-number">4</span>
-              <span className="stat-label">Languages Supported</span>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Language CTA */}
-      <section className="lang-cta-section">
-        <div className="container">
-          <div className="lang-cta-card">
-            <div className="lang-cta-icon">🌍</div>
-            <div className="lang-cta-text">
-              <h3>Healthcare information in the language you think in</h3>
-              <p>Switch between English, Twi, Ewe, and Ga from the top of any screen. Powered by GhanaNLP.</p>
-            </div>
-            <div className="lang-cta-flags">
-              <div className="lang-flag-item"><span>🇬🇭</span><span>EN</span></div>
-              <div className="lang-flag-item"><span>🌍</span><span>TW</span></div>
-              <div className="lang-flag-item"><span>🌍</span><span>EWE</span></div>
-              <div className="lang-flag-item"><span>🌍</span><span>GA</span></div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <p className="rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900">
+        <strong>Note:</strong> First aid tips are not a diagnosis. In emergencies,
+        call for help and get to a facility as soon as you can.
+      </p>
     </div>
   )
 }

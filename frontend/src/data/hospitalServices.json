@@ -1,372 +1,192 @@
 [
   {
     "id": "opd",
-    "title": "General OPD Visit",
-    "emoji": "🏥",
-    "color": "#2563EB",
-    "description": "Outpatient Department — for non-emergency illnesses, check-ups, and general consultations.",
-    "documents": [
-      "NHIS card (original — not expired)",
-      "Hospital folder / patient ID card (if you have visited before)",
-      "Referral letter (if referred from another facility)",
-      "Any previous test results or prescriptions"
-    ],
+    "name": "General OPD visit",
+    "documents": "NHIS card, hospital folder or card (if returning), referral letter if you were referred, valid ID if asked.",
+    "bring": "Comfortable clothing, water bottle, small snack for long waits, your own pen for forms, cash or mobile money for items not covered.",
     "process": [
-      "Go to the Records / Registration desk — arrive early (before 8am) for a lower queue number",
-      "Register and collect your folder. Pay a registration fee if not on NHIS or if NHIS is expired",
-      "Proceed to the Vitals room — nurses check your blood pressure, temperature, weight, and pulse",
-      "Wait in the OPD waiting area to be called by the doctor",
-      "Consultation with the doctor (5–15 minutes). The doctor may write a prescription or request tests",
-      "Go to the Laboratory or X-ray if tests are ordered",
-      "Return to doctor with results if required",
-      "Go to the Pharmacy to collect your medication"
+      "Register or renew folder at records / front desk.",
+      "Pay any required levies or show NHIS as directed.",
+      "Vitals (BP, temperature, weight) may be taken at triage or nurses’ station.",
+      "Wait for your queue number to be called for consultation.",
+      "See the doctor; you may be sent for lab, pharmacy, or imaging.",
+      "Complete pharmacy or lab steps before leaving if prescribed."
     ],
-    "nhisCoverage": "Consultation: ✅ Covered. Basic lab tests (malaria test, blood count): ✅ Covered. Some drugs: ✅ Covered. Specialist drugs and some premium medications: ⚠️ May require out-of-pocket payment.",
-    "estimatedTime": "2–4 hours (arrive early to reduce wait)",
-    "tips": [
-      "Arrive before 8:00am to get a low queue number",
-      "Bring a pen — many forms require your signature",
-      "Bring water and a small snack — waits can be long",
-      "Keep your folder and NHIS card together in a safe place for future visits",
-      "If you have a specific complaint, write it down beforehand so you don't forget in the consultation"
-    ],
-    "cost": "With NHIS: Usually GHS 0–5 for registration. Without NHIS: GHS 20–50+ depending on facility."
+    "nhis": "Consultation often covered on active NHIS; some drugs, consumables, or certain tests may be partly or fully out-of-pocket depending on facility policy.",
+    "time": "About 2–4 hours total on busy days; longer if labs or imaging are needed.",
+    "tips": "Arrive early (before 8am) for a lower queue number. Bring a book or charger. Ask staff where to wait after each step."
   },
   {
     "id": "antenatal-first",
-    "title": "Antenatal Care (First Visit)",
-    "emoji": "🤰",
-    "color": "#EC4899",
-    "description": "Your very first antenatal (pregnancy check-up) visit — usually around 8–12 weeks of pregnancy.",
-    "documents": [
-      "NHIS card",
-      "National ID or Ghana Card",
-      "Any previous pregnancy records (if applicable)",
-      "Your husband's/partner's blood group results (if available)"
-    ],
+    "name": "Antenatal care (first visit)",
+    "documents": "NHIS card, ID, any old antenatal records, partner contact if the facility requests emergency details.",
+    "bring": "Urine sample in a clean container if your clinic expects it on first visit — ask locally, water, snacks.",
     "process": [
-      "Go to Records to register as an antenatal patient",
-      "You will be given an Antenatal (ANC) card — this is very important, keep it safe",
-      "Vitals are taken: weight, height, blood pressure, temperature",
-      "Blood and urine samples are collected for initial tests (HIV, blood group, haemoglobin, syphilis, malaria, protein in urine)",
-      "A midwife or doctor takes your comprehensive medical history",
-      "Physical examination including pelvic assessment",
-      "Doctor or midwife counsels you on nutrition, rest, danger signs in pregnancy, and supplements",
-      "Iron, folic acid, and other supplements are prescribed",
-      "Date for next visit is booked"
+      "Register at ANC clinic; complete intake forms.",
+      "Urine and possibly blood tests; vitals and history taken.",
+      "Consultation with midwife or doctor; dating scan may be scheduled.",
+      "Counselling on nutrition, danger signs, and next visits.",
+      "Receive next appointment date."
     ],
-    "nhisCoverage": "All routine ANC services: ✅ Fully covered under NHIS. Deliveries: ✅ Covered. All ANC drugs (iron, folic acid, anti-malarials): ✅ Covered.",
-    "estimatedTime": "3–5 hours (first visit is the most thorough)",
-    "tips": [
-      "Come with a URINE SAMPLE — collect first morning urine in a clean container with a lid",
-      "Fast from midnight if instructed (for blood sugar test) — ask when you call ahead",
-      "Bring a trusted person with you for support",
-      "Write down any questions or symptoms you want to discuss",
-      "Arrive early — ANC clinics fill up quickly"
-    ],
-    "cost": "With NHIS: GHS 0 for most services. Without NHIS: GHS 50–150 for full first visit."
+    "nhis": "Routine ANC visits are often covered; some tests or supplements may require payment — confirm at the facility.",
+    "time": "About 2–3 hours for first booking; allow a full morning.",
+    "tips": "Call ahead to confirm if first-morning urine is needed. Wear easy clothing for examination."
   },
   {
-    "id": "antenatal-followup",
-    "title": "Antenatal Care (Follow-up)",
-    "emoji": "👶",
-    "color": "#DB2777",
-    "description": "Routine follow-up antenatal visit after your first appointment.",
-    "documents": [
-      "NHIS card",
-      "Your Antenatal (ANC) card — this is MANDATORY, do not forget it",
-      "Previous test results (if you had any done externally)"
-    ],
+    "id": "antenatal-follow",
+    "name": "Antenatal care (follow-up)",
+    "documents": "NHIS card, antenatal record book, previous lab results if any.",
+    "bring": "Urine sample if your clinic asks each visit, water, snack.",
     "process": [
-      "Go directly to ANC section — no need to start at Records if you have your ANC card",
-      "Weight and blood pressure are checked and recorded in your ANC card",
-      "Urine dipstick test may be done",
-      "Midwife listens to baby's heartbeat (after 20 weeks)",
-      "Fundal height measurement (belly measurement to assess baby's growth)",
-      "Any concerns or symptoms are reviewed",
-      "Refill of supplements (iron, folic acid) is given if needed",
-      "Next appointment date is recorded"
+      "Check in at ANC desk with your book.",
+      "Urine dipstick and vitals (weight, BP).",
+      "Queue for midwife/doctor review.",
+      "Any scheduled immunizations or labs.",
+      "Next appointment written in your book."
     ],
-    "nhisCoverage": "All follow-up ANC visits: ✅ Covered. Supplements refill: ✅ Covered.",
-    "estimatedTime": "1–2.5 hours",
-    "tips": [
-      "DO NOT forget your ANC card — you may be turned away without it",
-      "Collect a urine sample before coming",
-      "Note any new symptoms to report: swelling, headaches, reduced fetal movement",
-      "ANC is ideally visited every 4 weeks up to 28 weeks, then every 2 weeks, then weekly near your due date"
-    ],
-    "cost": "With NHIS: GHS 0. Without NHIS: GHS 20–50 per visit."
+    "nhis": "Usually covered similarly to first visit; extra tests may be billed separately.",
+    "time": "About 1–2 hours depending on queue.",
+    "tips": "Book early in the day when possible. Note any new swelling, headache, or vision changes to report."
   },
   {
     "id": "dental",
-    "title": "Dental Check-up",
-    "emoji": "🦷",
-    "color": "#0EA5E9",
-    "description": "Dental clinic visit for check-ups, extractions, fillings, or toothache treatment.",
-    "documents": [
-      "NHIS card",
-      "Hospital folder (if you are a registered patient)"
-    ],
+    "name": "Dental check-up",
+    "documents": "NHIS if accepted for dental at that facility, ID, cash/mobile money for materials sometimes charged.",
+    "bring": "Toothbrush if asked to clean before exam; arrive with brushed teeth when possible.",
     "process": [
-      "Register at Records and request Dental department",
-      "Take a seat in the Dental waiting area",
-      "Called in for examination — dentist examines your teeth and gums",
-      "Dentist discusses findings and recommends treatment",
-      "Treatment is carried out (extraction, cleaning, filling, etc.)",
-      "Prescription given if required",
-      "Follow-up appointment booked if needed"
+      "Register and pay if required.",
+      "Initial oral exam; X-ray may be ordered.",
+      "Treatment plan discussed (cleaning, filling, referral).",
+      "Procedure same day or new appointment.",
+      "Prescriptions to pharmacy if given."
     ],
-    "nhisCoverage": "Basic examination: ✅ Covered. Tooth extraction: ✅ Covered. Fillings: ⚠️ Partially covered (basic fillings only). Cosmetic dental work: ❌ Not covered. X-rays: ⚠️ May require payment.",
-    "estimatedTime": "1.5–3 hours",
-    "tips": [
-      "Brush and floss before your appointment",
-      "Avoid eating 2 hours before if extractions are likely",
-      "Tell the dentist about any allergies to anaesthesia",
-      "Dental clinics often have separate queue systems — confirm the process at reception"
-    ],
-    "cost": "With NHIS: GHS 0–10 for basic services. Without NHIS: Extractions GHS 50–100, Fillings GHS 100–300."
+    "nhis": "Dental benefit on NHIS varies — many items are out-of-pocket; confirm at the dental desk.",
+    "time": "About 45–90 minutes for a simple check; longer with X-ray or procedure.",
+    "tips": "Morning appointments may run closer to time. Mention pain, bleeding gums, or sensitivity clearly."
   },
   {
-    "id": "eye-clinic",
-    "title": "Eye Clinic",
-    "emoji": "👁️",
-    "color": "#6366F1",
-    "description": "Ophthalmology visit for eye problems, vision checks, or glasses prescription.",
-    "documents": [
-      "NHIS card",
-      "Hospital folder",
-      "Any previous eye prescriptions or glasses (bring them along)"
-    ],
+    "id": "eye",
+    "name": "Eye clinic",
+    "documents": "NHIS if applicable, old glasses or prescription, referral if required.",
+    "bring": "Sunglasses for dilation recovery; someone to accompany you if pupils will be dilated.",
     "process": [
-      "Register at Records for the Eye Clinic department",
-      "Visual acuity test (reading chart test) is conducted by an optometrist",
-      "Intraocular pressure test may be done",
-      "Doctor examines the eyes with special instruments",
-      "Diagnosis and treatment plan discussed",
-      "Prescription for glasses or medication given",
-      "Referral to specialist given if needed"
+      "Registration and vision checks.",
+      "Tonometry or other tests as needed.",
+      "Ophthalmic consultation.",
+      "Glasses prescription or medication.",
+      "Theatre booking only if surgery planned."
     ],
-    "nhisCoverage": "Eye examination: ✅ Covered. Basic eye medications: ✅ Covered. Cataract surgery (at participating hospitals): ✅ Covered. Glasses/lenses: ❌ Not covered by NHIS.",
-    "estimatedTime": "2–3 hours",
-    "tips": [
-      "Remove contact lenses at least 1–2 hours before your appointment if possible",
-      "Your eyes may be dilated during the appointment — bring sunglasses as your vision will be blurry for a few hours after",
-      "If bringing children for eye tests, plan for a longer visit and bring snacks to keep them calm"
-    ],
-    "cost": "With NHIS: GHS 0–20. Without NHIS: GHS 50–150 for full examination."
+    "nhis": "Basic consultation may be covered; lenses, frames, and some drops often self-pay.",
+    "time": "About 1–3 hours; longer if drops need time to work.",
+    "tips": "Do not drive yourself if dilating drops are used. Bring a list of current medications."
   },
   {
-    "id": "lab-tests",
-    "title": "Laboratory Tests",
-    "emoji": "🧪",
-    "color": "#8B5CF6",
-    "description": "Blood, urine, stool, and other diagnostic laboratory investigations.",
-    "documents": [
-      "Doctor's request form (the lab form your doctor gave you — REQUIRED)",
-      "NHIS card",
-      "Hospital folder"
-    ],
+    "id": "lab",
+    "name": "Lab tests (blood, urine, etc.)",
+    "documents": "Lab request form from doctor, NHIS card, hospital number, ID if requested.",
+    "bring": "Fasting if your test requires it (often 8–12 hours — confirm on the form), water only if allowed, clean container for urine if take-home sample.",
     "process": [
-      "Present your laboratory request form at the Lab reception desk",
-      "Register and receive a sample collection number",
-      "Provide samples as required (blood draw, urine collection, stool sample, throat swab, etc.)",
-      "Wait for results — some tests are ready in 30–60 minutes, others take 24–48 hours",
-      "Collect printed results from the Lab",
-      "Return to your doctor with the results"
+      "Present request at lab reception.",
+      "Payment or NHIS verification.",
+      "Sample collection (blood, urine, stool, etc.).",
+      "Ask when results will be ready and where to collect them.",
+      "Return results to your requesting doctor."
     ],
-    "nhisCoverage": "Malaria test (RDT): ✅ Covered. Full Blood Count: ✅ Covered. HIV test: ✅ Covered. Liver function, kidney function: ✅ Covered at most facilities. Culture and sensitivity tests: ⚠️ Partially covered. Specialised genetic tests: ❌ Not covered.",
-    "estimatedTime": "30 minutes – 2 days depending on test type",
-    "tips": [
-      "Some tests require FASTING — no food or water for 8–12 hours before. ASK your doctor if your test requires fasting",
-      "For urine tests: collect the MIDDLE of your urine stream (let a little out first) in a clean container",
-      "Bring the doctor's request form — you CANNOT get tested without it",
-      "Some tests have specific collection windows — ask when results will be ready before you leave"
-    ],
-    "cost": "With NHIS: GHS 0 for most basic tests. Without NHIS: GHS 20–200+ depending on test type."
+    "nhis": "Many routine tests are covered; specialised panels may be partly or fully paid by patient.",
+    "time": "Sample collection often 30–60 minutes of waiting; result turnaround varies.",
+    "tips": "Arrive early for fasting slots. Label containers carefully. Keep receipt and lab number."
   },
   {
-    "id": "xray-imaging",
-    "title": "X-Ray / Imaging",
-    "emoji": "🩻",
-    "color": "#475569",
-    "description": "Radiological investigations including X-rays, ultrasounds, and CT scans.",
-    "documents": [
-      "Doctor's imaging request form (REQUIRED)",
-      "NHIS card",
-      "Hospital folder",
-      "Previous imaging results to compare (if available)"
-    ],
+    "id": "imaging",
+    "name": "X-ray / imaging",
+    "documents": "Radiology request form, NHIS card, payment receipt if required.",
+    "bring": "Remove metal/jewellery as instructed; wear clothes without zippers if possible for some scans.",
     "process": [
-      "Present your imaging request form at the Radiology/X-ray reception",
-      "Register and receive queue number",
-      "Change into hospital gown if required (for certain scans)",
-      "Procedure is carried out by a radiographer",
-      "Wait for images to be processed and interpreted by a radiologist (may take hours to days)",
-      "Collect your report and images — return to doctor with results"
+      "Register at radiology.",
+      "Wait for technologist call.",
+      "Positioning and exposure (follow instructions to hold still).",
+      "Collect film/report when ready or sent electronically to doctor."
     ],
-    "nhisCoverage": "Plain X-ray (chest, limbs, spine): ✅ Covered. Ultrasound (obstetric and abdominal): ✅ Covered at most facilities. CT Scan: ⚠️ Covered at major hospitals but may have waiting lists. MRI: ❌ Usually not covered — very expensive out-of-pocket.",
-    "estimatedTime": "1–3 hours for the imaging; results may take longer",
-    "tips": [
-      "Remove all metal objects — jewellery, belts, hair clips — before imaging",
-      "For abdominal ultrasound: drink 1 litre of water 1 hour before and do NOT urinate — a full bladder is needed",
-      "For obstetric ultrasound (pregnancy scans): same as above",
-      "Wear simple, easily removable clothing",
-      "Tell the radiographer if you are or may be pregnant — X-rays are avoided in early pregnancy"
-    ],
-    "cost": "With NHIS: GHS 0 for X-ray and basic ultrasound. Without NHIS: X-ray GHS 50–150, Ultrasound GHS 100–250, CT Scan GHS 500–1500."
+    "nhis": "Basic X-rays may be covered; CT/MRI often largely out-of-pocket unless special approval.",
+    "time": "About 1–2 hours including queue; complex scans may be scheduled another day.",
+    "tips": "Pregnant or possibly pregnant patients must inform staff before X-ray. Bring previous images for comparison."
   },
   {
-    "id": "pharmacy",
-    "title": "Pharmacy Visit",
-    "emoji": "💊",
-    "color": "#059669",
-    "description": "Collecting prescribed medication from the hospital pharmacy.",
-    "documents": [
-      "Doctor's prescription (REQUIRED — do not lose it)",
-      "NHIS card (for covered medications)",
-      "Hospital folder"
-    ],
+    "id": "pharmacy-only",
+    "name": "Pharmacy only",
+    "documents": "Prescription or last visit card, NHIS, payment method.",
+    "bring": "Old drug packages if you need a refill with same brand; cooler bag for items needing cold chain.",
     "process": [
-      "Go to the outpatient pharmacy with your prescription",
-      "Submit prescription at the counter",
-      "Receive a queue number or wait for your name to be called",
-      "Your prescription is verified and dispensed",
-      "Pharmacist or dispensary technician explains dosage, timing, and storage",
-      "Pay any co-payment for non-covered items"
+      "Queue at pharmacy window with valid prescription.",
+      "NHIS verification for covered medicines.",
+      "Pay co-payment or full cost for non-covered items.",
+      "Check labels: dose, duration, and storage.",
+      "Ask how to take with food or empty stomach."
     ],
-    "nhisCoverage": "Medicines on the NHIS Essential Medicines List: ✅ Covered. Brand-name and premium medications: ❌ May require full out-of-pocket payment. Some antiretrovirals and TB drugs: ✅ Free of charge.",
-    "estimatedTime": "30 minutes – 1.5 hours",
-    "tips": [
-      "Do NOT lose the prescription — pharmacies won't dispense without it",
-      "Ask the pharmacist for clear instructions if you are unsure about dosage",
-      "If your drug is 'not available' on NHIS, ask for a generic/equivalent that is covered",
-      "Keep medications as instructed — many antibiotics must be refrigerated",
-      "Complete the full course of antibiotics even if you feel better"
-    ],
-    "cost": "With NHIS: GHS 0 for essential medicines. Non-covered drugs: GHS 10–500+ depending on medication."
+    "nhis": "NHIS formulary covers specific drugs; brand upgrades or non-listed drugs are usually paid by patient.",
+    "time": "About 20–60 minutes depending on queue and stock availability.",
+    "tips": "Generic substitutes may be cheaper if NHIS does not cover a brand. Confirm expiry dates before leaving."
   },
   {
     "id": "child-welfare",
-    "title": "Child Welfare Clinic",
-    "emoji": "👼",
-    "color": "#10B981",
-    "description": "Growth monitoring, vaccinations, nutrition checks, and child health services.",
-    "documents": [
-      "NHIS card (child's, if registered)",
-      "Child's Health Record Book ('Road to Health' book) — DO NOT FORGET THIS",
-      "Immunisation card (if separate from the health book)"
-    ],
+    "name": "Child welfare clinic (weighing)",
+    "documents": "Child health record book, NHIS, immunisation card.",
+    "bring": "Diaper bag, feeding supplies, small towel; baby in light clothing for accurate weight.",
     "process": [
-      "Go to Child Welfare Clinic (CWC) section — usually a separate queue and area from OPD",
-      "Register child and present health record book",
-      "Child is weighed and measured (height/length)",
-      "Growth is plotted on the growth chart in the child's book",
-      "Vaccinations given if due",
-      "Nurse or doctor assesses nutritional status and development",
-      "Counselling on feeding, hygiene, and complementary foods given",
-      "Next appointment recorded in book"
+      "Register at CWC.",
+      "Growth monitoring: weight, height, sometimes MUAC.",
+      "Nutrition counselling and vitamin A or deworming when due.",
+      "Immunizations if scheduled.",
+      "Next visit date recorded."
     ],
-    "nhisCoverage": "All routine childhood vaccinations: ✅ Free (EPI programme). Growth monitoring: ✅ Covered. Treatment for mild malnutrition: ✅ Covered. Specialised formula: ⚠️ May require payment.",
-    "estimatedTime": "1–2 hours",
-    "tips": [
-      "NEVER leave the Health Record book at home — all growth data and vaccine history is in it",
-      "CWC clinics often have specific days and hours (e.g., only on Tuesdays and Thursdays) — confirm beforehand",
-      "Dress the child in easily removable clothing for quick weighing",
-      "Bring an oral rehydration sachet in your bag in case the child reacts to vaccines"
-    ],
-    "cost": "With NHIS: GHS 0 for most services. Vaccinations are free for all children under the national programme."
+    "nhis": "Often covered for routine CWC services; some supplements may have small charges.",
+    "time": "About 1–2 hours on busy days.",
+    "tips": "Arrive early. Track feeding concerns to mention."
   },
   {
     "id": "family-planning",
-    "title": "Family Planning",
-    "emoji": "🌿",
-    "color": "#0D9488",
-    "description": "Contraceptive counselling, birth control services, and reproductive health.",
-    "documents": [
-      "NHIS card",
-      "Hospital folder",
-      "Any previous family planning records"
-    ],
+    "name": "Family planning",
+    "documents": "NHIS or ID as required.",
+    "bring": "List of current medicines; calendar of last period if discussing hormonal methods.",
     "process": [
-      "Go to Family Planning (FP) clinic — usually a separate section, often on specific days",
-      "Register at reception — this is a confidential service",
-      "Sit with a nurse or counsellor to discuss your options and medical history",
-      "Physical examination if required (blood pressure, weight)",
-      "Your chosen contraceptive method is administered (pills, injection, implant, IUD)",
-      "Counselling on correct use, potential side effects, and when to return"
+      "Private counselling on options.",
+      "Basic vitals and sometimes pregnancy test.",
+      "Method provided or referral.",
+      "Follow-up date for side effects review."
     ],
-    "nhisCoverage": "Contraceptive counselling: ✅ Covered. Injectable contraceptives (Depo-Provera): ✅ Covered. Implants: ✅ Covered. IUDs: ✅ Covered. Condoms: ✅ Usually free. Oral contraceptive pills: ✅ Covered.",
-    "estimatedTime": "1–2 hours",
-    "tips": [
-      "Family planning services are confidential — you do not need your partner's permission to access them",
-      "Know your last menstrual period (LMP) date — the nurse will ask",
-      "Most FP clinics run on specific days — call ahead to confirm",
-      "If you are starting a new method, ask clearly about when it becomes effective"
-    ],
-    "cost": "With NHIS: GHS 0 for most contraceptive services. The national programme subsidises most methods."
+    "nhis": "Many services subsidised or free in public facilities; confirm implant/IUCD fees locally.",
+    "time": "About 45–90 minutes; implant or IUCD may need a longer slot.",
+    "tips": "Ask about side effects and what to do if heavy bleeding or severe headache occurs."
   },
   {
     "id": "emergency",
-    "title": "Emergency / Accident & Emergency (A&E)",
-    "emoji": "🚨",
-    "color": "#DC2626",
-    "description": "For life-threatening emergencies — accidents, severe illness, trauma, chest pain.",
-    "documents": [
-      "NHIS card (bring if you have it — but DO NOT delay emergency care to look for documents)",
-      "Any medications the patient is currently taking",
-      "Hospital folder (if available — not essential in emergency)"
-    ],
+    "name": "Emergency / A&E",
+    "documents": "Any ID, NHIS, contact of relative, list of allergies and medicines.",
+    "bring": "Cash/mobile money for items not covered; minimal belongings so staff can work quickly.",
     "process": [
-      "Go directly to the A&E / Casualty department — do not stop at Records",
-      "Tell the triage nurse the CHIEF complaint immediately and clearly",
-      "Triage assessment — the nurse categorises urgency (immediate, urgent, or can wait)",
-      "Doctor examination — may be rapid or detailed depending on severity",
-      "Investigations ordered (blood tests, X-ray, ECG, etc.)",
-      "Treatment initiated",
-      "Decision made: discharge, admit to ward, or transfer to specialist"
+      "Triage nurse assesses urgency — most serious cases seen first.",
+      "Registration may happen at bedside in critical cases.",
+      "Examination, tests, and treatment in emergency unit.",
+      "Admission to ward or discharge with prescription."
     ],
-    "nhisCoverage": "Emergency services: ✅ Covered under NHIS. Note: if NHIS card is not available during an emergency, treatment should not be delayed — sort documentation afterwards.",
-    "estimatedTime": "Variable — life-threatening cases are seen immediately. Less urgent cases may wait 2–6 hours.",
-    "tips": [
-      "DO NOT delay going to the hospital for a real emergency to find documents",
-      "Tell the triage nurse the MOST serious symptom first — do not start from the beginning of the story",
-      "If you are driving someone in an emergency, call ahead so the hospital can prepare",
-      "Know the route to the nearest A&E before you need it"
-    ],
-    "cost": "Emergency treatment: generally covered by NHIS. Out-of-pocket: GHS 50–500+ depending on interventions."
+    "nhis": "Emergency fees and some consumables may be billed; stabilisation is priority.",
+    "time": "Highly variable: minutes for critical care; several hours for non-urgent complaints.",
+    "tips": "Stay calm; give short clear history. One family spokesperson reduces confusion."
   },
   {
     "id": "specialist",
-    "title": "Specialist Referral",
-    "emoji": "🩺",
-    "color": "#7C3AED",
-    "description": "Seeing a specialist physician (cardiologist, neurologist, surgeon, etc.) via referral.",
-    "documents": [
-      "NHIS card",
-      "Referral letter from your OPD or primary doctor (REQUIRED)",
-      "Hospital folder",
-      "All previous test results and imaging related to the condition",
-      "Current medications list"
-    ],
+    "name": "Specialist referral",
+    "documents": "Referral letter from first doctor, NHIS, all prior results and imaging, hospital folder.",
+    "bring": "Chronological list of symptoms and treatments tried; questions written down.",
     "process": [
-      "Specialists usually cannot be seen directly — you need a referral letter from OPD or your GP",
-      "Present referral letter at the Records desk and request the specialist department",
-      "Book an appointment or join the specialist clinic queue for that day",
-      "Wait to be seen — specialist clinics can have long waits (often 3–5 hours)",
-      "Specialist reviews your history, examinations, and previous results",
-      "May request further tests or procedures",
-      "Management plan discussed and documented",
-      "Follow-up appointment booked"
+      "Book specialist clinic (may be weeks ahead).",
+      "Register and pay specialist levy if required.",
+      "Consultation; specialist may order new tests.",
+      "Plan: surgery, medical treatment, or further referral.",
+      "Follow-up appointment scheduling."
     ],
-    "nhisCoverage": "Specialist consultation: ✅ Covered with valid referral letter. Specialist-ordered tests: ✅ Mostly covered. Some specialist medications: ⚠️ May require out-of-pocket payment.",
-    "estimatedTime": "Half a day to a full day (specialist clinics are typically very busy)",
-    "tips": [
-      "Get ALL your test results together and organised before the appointment",
-      "Bring a list of all your current medications with dosages",
-      "Specialist clinics often meet on specific days — confirm the schedule in advance",
-      "Bring a second person — the visit is long and information can be overwhelming",
-      "Write down questions you want answered before the appointment"
-    ],
-    "cost": "With NHIS: GHS 0 for basic specialist services. Some specialist investigations: GHS 50–500+."
+    "nhis": "Specialist levies and some procedures may be partly covered — varies by hospital and scheme.",
+    "time": "First visit often 2–4 hours including tests; review visits shorter.",
+    "tips": "Bring copies of results for your own file. Ask when to return if symptoms worsen before the next date."
   }
 ]
